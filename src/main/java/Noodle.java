@@ -1,8 +1,10 @@
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Noodle {
     HashMap<String, Diplome> diplomeHashMap = new HashMap<>();
+
     //HashMap<String, Enseignant> enseignantHashMap = new HashMap<>();
 
     public Noodle(){
@@ -33,9 +35,19 @@ public class Noodle {
             Diplome dip = new Diplome(nomDiplome, type, annee, maxEtu, ects);
             diplomeHashMap.put(nomDiplome, dip);
 
-            //if (type == "LICENCEPRO"){
-
-            //}
+            int cpt = dip.annee;
+            while(cpt>0){
+                int cleAnnee = cpt;
+                ArrayList<UE> nouvelleListe = new ArrayList<>();
+                dip.UEHashMap.put(cleAnnee, nouvelleListe);
+                //System.out.println("Année "+ cleAnnee + " crée.");
+                cpt--;
+            }
+            //Afficher les années
+            dip.UEHashMap.forEach((c, listUE) -> {
+                System.out.print("Année " + c + " : ");
+                System.out.println(listUE.size() + " UE(s) - Liste: " + listUE);
+            });
             System.out.println("Diplôme créé");
             return dip;
         }

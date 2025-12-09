@@ -8,10 +8,7 @@ public class Diplome {
     int maxEtu;
     int ects;
     ArrayList<UE> UEList = new ArrayList<>();
-    ArrayList<Integer> anneeUn = new ArrayList<>();
-    ArrayList<Integer> anneeDeux = new ArrayList<>();
-    ArrayList<Integer> anneeTrois = new ArrayList<>();
-    HashMap<ArrayList<Integer>, ArrayList<UE>> UEHashMap = new HashMap<>();
+    HashMap<Integer, ArrayList<UE>> UEHashMap = new HashMap<>();
 
     public Diplome(String nomDiplome, TypeDiplome type, int annee, int maxEtu, int ects){
         this.nomDiplome = nomDiplome;
@@ -25,9 +22,9 @@ public class Diplome {
         int un = 1;
         UE mat = new UE(nomUE, ects, cm, td, tp);
         UEList.add(mat);
-        if (nbAnneeDip == un){
-            UEHashMap.put(anneeUn, UEList);
-        }
+        //if (nbAnneeDip == un){
+            //UEHashMap.put(anneeUn, UEList);
+        //}
 
         //UEHashMap.put(annee, UEList);
         return mat;
