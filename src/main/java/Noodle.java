@@ -44,10 +44,10 @@ public class Noodle {
                 cpt--;
             }
             //Afficher les années
-            dip.UEHashMap.forEach((c, listUE) -> {
+            /*dip.UEHashMap.forEach((c, listUE) -> {
                 System.out.print("Année " + c + " : ");
                 System.out.println(listUE.size() + " UE(s) - Liste: " + listUE);
-            });
+            });*/
             System.out.println("Diplôme créé");
             return dip;
         }

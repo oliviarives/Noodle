@@ -19,15 +19,30 @@ public class Diplome {
     }
 
     public UE creerUE(String nomUE, int ects, int cm, int td, int tp, int nbAnneeDip){
-        int un = 1;
-        UE mat = new UE(nomUE, ects, cm, td, tp);
-        UEList.add(mat);
-        //if (nbAnneeDip == un){
-            //UEHashMap.put(anneeUn, UEList);
-        //}
+
+        UE nouvelleUE = new UE(nomUE, ects, cm, td, tp);
+
+        //On ajoute l'UE à la liste générale d'UE
+        UEList.add(nouvelleUE);
+
+
+        //On ajoute l'UE dans la bonne année du diplome
+        ArrayList<UE> listeAInserer = UEHashMap.get(nbAnneeDip);
+        //On ajoute l'UE dans la bonne année du diplome
+        listeAInserer.add(nouvelleUE);
+
+        UEHashMap.forEach((c, listUE) -> {
+            System.out.print("Année " + c + " : ");
+            System.out.println(listUE.size() + " UE(s) - Liste: " + listUE);
+        });
+
+
+
+
+
 
         //UEHashMap.put(annee, UEList);
-        return mat;
+        return nouvelleUE;
     }
 
     public String getName(){
