@@ -10,12 +10,19 @@ public class Noodle {
     }
 
     public HashMap<String, Diplome> getDiplomeHashMap() {
+        for (String nom : diplomeHashMap.keySet()) {
+            //System.out.println("Nom du diplôme : " + diplomeHashMap.Diplome);
+        }
         return diplomeHashMap;
     }
 
-    //public HashMap<String, Enseignant> getEnseignantHashMap() {
-       // return enseignantHashMap;
-    //}
+    public void afficherDiplomes() {
+        diplomeHashMap.forEach((nomDiplome, d) -> System.out.println(nomDiplome + " : " + d));
+    }
+
+    /*public HashMap<String, Enseignant> getEnseignantHashMap() {
+        return enseignantHashMap;
+    }*/
 
     public Diplome creerDiplome(String nomDiplome, TypeDiplome type, int annee, int maxEtu, int ects){
         // Verif si le diplome existe déjà
@@ -26,6 +33,9 @@ public class Noodle {
             Diplome dip = new Diplome(nomDiplome, type, annee, maxEtu, ects);
             diplomeHashMap.put(nomDiplome, dip);
 
+            //if (type == "LICENCEPRO"){
+
+            //}
             System.out.println("Diplôme créé");
             return dip;
         }
