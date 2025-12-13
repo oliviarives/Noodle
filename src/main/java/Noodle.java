@@ -84,7 +84,7 @@ public class Noodle {
     // Il faut accèder au à la liste d'UE de chaque diplome de la formation,
     // puis accéder à la HashMap d'enseignant de l'UE pour faire la somme des heures,
     // ou alors dans UE on fait un compteur du nombre d'heures (surement plus simple)
-      //  diplomeHashMap.forEach((nomDiplome, d) -> d.UEList.get()));
+      //  diplomeHashMap.forEach((nomDiplome, d) -> d.UEList.get()));eee
   //  }
 
 
