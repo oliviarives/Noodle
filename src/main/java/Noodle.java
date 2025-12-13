@@ -43,17 +43,56 @@ public class Noodle {
                 //System.out.println("Année "+ cleAnnee + " crée.");
                 cpt--;
             }
-            //Afficher les années
-            /*dip.UEHashMap.forEach((c, listUE) -> {
-                System.out.print("Année " + c + " : ");
-                System.out.println(listUE.size() + " UE(s) - Liste: " + listUE);
-            });*/
-            System.out.println("Diplôme créé");
+            System.out.println("Diplôme " + nomDiplome + " créé");
             return dip;
         }
     }
 
-  //  public Diplome consulterDiplome(String nomDiplome){
+
+    public void consulterAnneeDiplome (Diplome dip, int annee){
+        System.out.println("Liste des UE enseignées en année " + annee + " de " + dip.nomDiplome);
+        System.out.println(dip.UEHashMap.get(annee));
+    }
+
+    public void consulterDiplome (Diplome dip){
+         System.out.printf("Voici la liste des UE par années pour " + dip.nomDiplome +" : ");
+         dip.UEHashMap.forEach((c, listUE) -> {
+                System.out.print("Année " + c + " : ");
+                System.out.println(listUE.size() + " UE(s) - Liste: " + listUE);
+            });
+    }
+
+    public Enseignant ajouterEnseigantUE(UE ue, Enseignant enseignant, int nbHeures) {
+        //on  ajoute l'enseignant à la HashMap de l'UE associé au nombre d'heures
+        ue.EnseignantHashMap.put(enseignant, nbHeures);
+        System.out.print("L'enseignant " + enseignant.name + " " + enseignant.firstName + " ajouté à l'UE "+ ue + " avec un volume de "+ nbHeures + "h");
+        return enseignant;
+    }
+
+    public UE assignerUE(Diplome dip, UE ue, int nbAnneeDip){
+        //On ajoute l'UE dans la bonne année du diplome
+        ArrayList<UE> listeAInserer = dip.UEHashMap.get(nbAnneeDip);
+
+        //On ajoute l'UE dans la bonne année du diplome
+        listeAInserer.add(ue);
+
+        System.out.println("UE " + ue + " ajoutée à l'année " + nbAnneeDip + " du diplôme " + dip.nomDiplome );
+        return ue;
+    }
+
+   // public int calculerVolumetrieHeures(){
+    // Il faut accèder au à la liste d'UE de chaque diplome de la formation,
+    // puis accéder à la HashMap d'enseignant de l'UE pour faire la somme des heures,
+    // ou alors dans UE on fait un compteur du nombre d'heures (surement plus simple)
+      //  diplomeHashMap.forEach((nomDiplome, d) -> d.UEList.get()));
+  //  }
+
+
+
+
+
+
+
 
 
 }

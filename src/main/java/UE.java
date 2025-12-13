@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class UE {
     String nomUE;
     int ects;
     int cm;
     int td;
     int tp;
+    HashMap<Enseignant, Integer> EnseignantHashMap = new HashMap<>();
 
     public UE(String nomUE, int ects, int cm, int td, int tp) {
         this.nomUE = nomUE;

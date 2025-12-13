@@ -31,19 +31,13 @@ public class Diplome {
         //On ajoute l'UE dans la bonne année du diplome
         listeAInserer.add(nouvelleUE);
 
-        UEHashMap.forEach((c, listUE) -> {
-            System.out.print("Année " + c + " : ");
-            System.out.println(listUE.size() + " UE(s) - Liste: " + listUE);
-        });
-
-
-
-
-
+        System.out.println("UE " + nouvelleUE + " ajoutée à l'année " + nbAnneeDip + " du diplôme " + this.nomDiplome );
 
         //UEHashMap.put(annee, UEList);
         return nouvelleUE;
     }
+
+
 
     public String getName(){
         return this.nomDiplome;
