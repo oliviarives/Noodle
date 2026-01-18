@@ -87,6 +87,7 @@ public class Noodle {
         ue.heuresParEnseignant.put(enseignant.name, nbHeures);
         System.out.print("L'enseignant " + enseignant.name + " " + enseignant.firstName + " ajouté à l'UE "+ ue + " avec un volume de "+ nbHeures + "h");
         return enseignant;
+
     }
 
     public Enseignant enregistrerEnseignant(String nom, String prenom) {
