@@ -165,8 +165,6 @@ public class ConsoleApp {
 
         int y = Integer.parseInt(args[0]);
 
-        // Validation simple: 1..selectedDiplome.annee si tu as ce champ
-        // Si tu veux type-dépendant (Licence=3, Master=2...), tu le feras ensuite.
         int max = selectedDiplome.annee;
         if (y < 1 || y > max) {
             throw new IllegalArgumentException("Année invalide: " + y + " (1.." + max + ")");
@@ -174,7 +172,12 @@ public class ConsoleApp {
 
         selectedYear = y;
         System.out.println("Année sélectionnée: " + y);
+
+        // Afficher les UE de l'année sélectionnée
+        afficherUEAnneeCourante();
     }
+
+
 
     private void handleCreateUE(String[] args) {
         if (args.length != 5) {
@@ -213,4 +216,20 @@ public class ConsoleApp {
             throw new IllegalStateException("Aucun diplôme sélectionné. Utilise: SELECT DEGREE <nomDiplome>");
         }
     }
+
+    private void afficherUEAnneeCourante() {
+        System.out.println("UE de l’année " + selectedYear + " :");
+
+        var ues = selectedDiplome.UEHashMap.get(selectedYear);
+        if (ues == null || ues.isEmpty()) {
+            System.out.println("  (Aucune UE)");
+            return;
+        }
+
+        for (int i = 0; i < ues.size(); i++) {
+            System.out.println("  " + (i + 1) + ") " + ues.get(i));
+        }
+    }
+
+
 }
