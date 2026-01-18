@@ -39,13 +39,19 @@ public class Diplome {
 
 
 
-    public String getName(){
-        return this.nomDiplome;
+    @Override
+    public String toString() {
+        return String.format("%s (%s, %d an(s), %d ECTS)",
+                nomDiplome, type, annee, ects);
     }
+
 
     public TypeDiplome getType(){
         return this.type;
     }
+
+    public Diplome() { }
+
 
     public int getAnnee(){
         return this.annee;

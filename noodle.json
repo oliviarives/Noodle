@@ -1,0 +1,16 @@
+{
+  "diplomeHashMap" : {
+    "LicenceMIASHS" : {
+      "type" : "LICENCE",
+      "annee" : 3,
+      "maxEtu" : 180,
+      "ects" : 180
+    },
+    "LicenceInfo" : {
+      "type" : "LICENCE",
+      "annee" : 3,
+      "maxEtu" : 180,
+      "ects" : 180
+    }
+  }
+}

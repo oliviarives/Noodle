@@ -7,7 +7,9 @@ public class UE {
     int cm;
     int td;
     int tp;
-    HashMap<Enseignant, Integer> EnseignantHashMap = new HashMap<>();
+    HashMap<String, Integer> heuresParEnseignant = new HashMap<>();
+
+
 
     public UE(String nomUE, int ects, int cm, int td, int tp) {
         this.nomUE = nomUE;
@@ -17,9 +19,20 @@ public class UE {
         this.tp = tp;
     }
 
-    public String getNomUE() {
-        return nomUE;
+    @Override
+    public String toString() {
+        return String.format("%s - %d ECTS (CM:%dh TD:%dh TP:%dh)",
+                nomUE, ects, cm, td, tp);
     }
+
+    public UE() { }
+
+    public HashMap<String, Integer> getHeuresParEnseignant() {
+        return heuresParEnseignant;
+    }
+
+
+
 
     public int getEcts() {
         return ects;
