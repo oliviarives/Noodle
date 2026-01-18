@@ -5,11 +5,21 @@ public enum Commande {
     SELECT_YEAR("SELECT YEAR"),
     CREATE_UE("CREATE UE"),
 
-    DISPLAY_GRAPH("DISPLAY GRAPH"),
+    DELETE_UE("DELETE UE"),
 
+    GET_TOTAL("GET TOTAL"),
+
+
+    DISPLAY_GRAPH("DISPLAY GRAPH"),
     LIST_DEGREES("LIST DEGREES"),
     HELP("HELP"),
-    EXIT("EXIT");
+    EXIT("EXIT"),
+
+    ALL("ALL"),
+    DIPLOME("DIPLOME"),
+    UE("UE"),
+    ENSEIGNANT("ENSEIGNANT"),
+    ;
 
     private final String label;
 

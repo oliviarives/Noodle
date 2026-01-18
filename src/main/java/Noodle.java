@@ -115,6 +115,95 @@ public class Noodle {
         return diplomeHashMap.get(nomDiplome);
     }
 
+    public int getTotal(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Nom vide");
+        }
+
+        // 1) ALL : total de tous les diplômes
+        if (name.equalsIgnoreCase("ALL")) {
+            int total = 0;
+            for (Diplome d : diplomeHashMap.values()) {
+                total += totalHeuresDiplome(d);
+            }
+            return total;
+        }
+
+        // 2) Diplôme : si le nom correspond à un diplôme
+        Diplome d = diplomeHashMap.get(name);
+        if (d != null) {
+            return totalHeuresDiplome(d);
+        }
+
+        // 3) UE : si le nom correspond à une UE (unique)
+        UE ue = findUEByName(name);
+        if (ue != null) {
+            return ue.cm + ue.td + ue.tp;
+        }
+
+        // 4) Enseignant : total des heures affectées (sur toutes les UE)
+        // (fonctionne déjà avec ton HashMap heuresParEnseignant dans UE)
+        if (enseignantsByNom.containsKey(name)) {
+            return totalHeuresEnseignant(name);
+        }
+
+        // Si tu veux accepter aussi "Dupont" même non enregistré, remplace le test ci-dessus par:
+        // return totalHeuresEnseignant(name); avec erreur si total == 0.
+
+        throw new IllegalArgumentException("Aucun diplôme, UE ou enseignant ne correspond à: " + name);
+    }
+
+    private int totalHeuresDiplome(Diplome d) {
+        int total = 0;
+        for (UE ue : d.UEList) {
+            total += ue.cm + ue.td + ue.tp;
+        }
+        return total;
+    }
+
+    private UE findUEByName(String nomUE) {
+        for (Diplome d : diplomeHashMap.values()) {
+            for (UE ue : d.UEList) {
+                if (ue.nomUE.equals(nomUE)) {
+                    return ue;
+                }
+            }
+        }
+        return null;
+    }
+
+    private int totalHeuresEnseignant(String nomEnseignant) {
+        int total = 0;
+        for (Diplome d : diplomeHashMap.values()) {
+            for (UE ue : d.UEList) {
+                Integer h = ue.heuresParEnseignant.get(nomEnseignant);
+                if (h != null) total += h;
+            }
+        }
+        return total;
+    }
+
+    public TotalTargetType getTotalTargetType(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Nom vide");
+        }
+
+        if (name.equalsIgnoreCase("ALL")) return TotalTargetType.ALL;
+
+        if (diplomeHashMap.containsKey(name)) return TotalTargetType.DIPLOME;
+
+        if (enseignantsByNom.containsKey(name)) return TotalTargetType.ENSEIGNANT;
+
+        // sinon, on essaie UE
+        UE ue = findUEByName(name);
+        if (ue != null) return TotalTargetType.UE;
+
+        throw new IllegalArgumentException("Aucun diplôme, UE ou enseignant ne correspond à: " + name);
+    }
+
+
+
+
 
     // public int calculerVolumetrieHeures(){
     // Il faut accèder au à la liste d'UE de chaque diplome de la formation,

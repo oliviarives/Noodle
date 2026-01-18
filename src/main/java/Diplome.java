@@ -37,6 +37,30 @@ public class Diplome {
         return nouvelleUE;
     }
 
+    public void supprimerUE(String nomUE, int nbAnneeDip) {
+        ArrayList<UE> uesAnnee = UEHashMap.get(nbAnneeDip);
+        if (uesAnnee == null) {
+            throw new IllegalArgumentException("Année invalide: " + nbAnneeDip);
+        }
+
+        UE cible = null;
+        for (UE ue : uesAnnee) {
+            if (ue.nomUE.equals(nomUE)) {
+                cible = ue;
+                break;
+            }
+        }
+
+        if (cible == null) {
+            throw new IllegalArgumentException("UE introuvable: " + nomUE);
+        }
+
+        // cohérence: suppression dans l'année + dans la liste globale
+        uesAnnee.remove(cible);
+        UEList.remove(cible);
+    }
+
+
 
 
     @Override

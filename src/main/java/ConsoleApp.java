@@ -94,6 +94,16 @@ public class ConsoleApp {
                 handleDisplayGraph(args);
                 return false;
 
+            case DELETE_UE:
+                handleDeleteUE(args);
+                return true; // mutation => sauvegarde
+
+            case GET_TOTAL:
+                gestionVolumetrie(args);
+                return false; // lecture seule => pas de sauvegarde
+
+
+
 
 
             case EXIT:
@@ -116,6 +126,8 @@ public class ConsoleApp {
         System.out.println("  CREATE UE <nomUE> <ects> <cm> <td> <tp>");
         System.out.println("  DISPLAY GRAPH <nomDiplome>");
         System.out.println("  LIST DEGREES");
+        System.out.println("  DELETE UE <nomUE>");
+        System.out.println("  GET TOTAL <name>   (name = ALL | nomDiplome | nomUE | nomEnseignant)");
         System.out.println("  HELP");
         System.out.println("  EXIT");
         System.out.println();
@@ -230,6 +242,49 @@ public class ConsoleApp {
             System.out.println("  " + (i + 1) + ") " + ues.get(i));
         }
     }
+
+    private void handleDeleteUE(String[] args) {
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Usage: DELETE UE <nomUE>");
+        }
+        requireSelectedDegree();
+
+        String nomUE = args[0];
+        selectedDiplome.supprimerUE(nomUE, selectedYear);
+
+        System.out.println("UE supprimée: " + nomUE + " (année " + selectedYear + ")");
+
+        // feedback immédiat (cohérent avec ton SELECT YEAR qui affiche déjà)
+        afficherUEAnneeCourante();
+    }
+
+    private void gestionVolumetrie(String[] args) {
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Usage: GET TOTAL <name>");
+        }
+
+        String name = args[0];
+        int total = noodle.getTotal(name);
+        TotalTargetType type = noodle.getTotalTargetType(name);
+
+        switch (type) {
+            case ALL:
+                System.out.println("L'offre de formation représente actuellement " + total + " heures (CM, TD, TP)");
+                break;
+
+            case ENSEIGNANT:
+                System.out.println("Le nombre d'heures de " + name + " est de " + total + " heures");
+                break;
+
+            case DIPLOME:
+            case UE:
+                System.out.println(name + " représente actuellement " + total + " heures (CM, TD, TP)");
+                break;
+        }
+    }
+
+
+
 
 
 }
