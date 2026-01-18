@@ -111,7 +111,12 @@ public class Noodle {
         return ue;
     }
 
-   // public int calculerVolumetrieHeures(){
+    public Diplome getDiplome(String nomDiplome) {
+        return diplomeHashMap.get(nomDiplome);
+    }
+
+
+    // public int calculerVolumetrieHeures(){
     // Il faut accèder au à la liste d'UE de chaque diplome de la formation,
     // puis accéder à la HashMap d'enseignant de l'UE pour faire la somme des heures,
     // ou alors dans UE on fait un compteur du nombre d'heures (surement plus simple)
