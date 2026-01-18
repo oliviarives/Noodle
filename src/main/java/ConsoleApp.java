@@ -102,6 +102,17 @@ public class ConsoleApp {
                 gestionVolumetrie(args);
                 return false; // lecture seule => pas de sauvegarde
 
+            case CREATE_TEACHER:
+                gererCommandeCreateTeacher(args);
+                return true;
+
+            case ASSIGN:
+                gererCommandeAssign(args);
+                return true;
+
+
+
+
 
 
 
@@ -128,6 +139,10 @@ public class ConsoleApp {
         System.out.println("  LIST DEGREES");
         System.out.println("  DELETE UE <nomUE>");
         System.out.println("  GET TOTAL <name>   (name = ALL | nomDiplome | nomUE | nomEnseignant)");
+        System.out.println("  ASSIGN TEACHER <prenom> <nom> <nbHeures>");
+        System.out.println("  CREATE TEACHER <prenom> <nom>");
+
+
         System.out.println("  HELP");
         System.out.println("  EXIT");
         System.out.println();
@@ -282,6 +297,58 @@ public class ConsoleApp {
                 break;
         }
     }
+
+    private void gererCommandeCreateTeacher(String[] args) {
+        if (args.length != 2) {
+            throw new IllegalArgumentException(
+                    "Usage: CREATE TEACHER <prenom> <nom>"
+            );
+        }
+
+        String prenom = args[0];
+        String nom = args[1];
+
+        noodle.creerEnseignant(prenom, nom);
+
+        System.out.println(
+                "Enseignant créé : " + prenom + " " + nom
+        );
+    }
+
+
+
+
+
+    private void gererCommandeAssign(String[] args) {
+        if (args.length != 3) {
+            throw new IllegalArgumentException(
+                    "Usage: ASSIGN <nomUE> <nomEnseignant> <nbHeures>"
+            );
+        }
+
+        String nomUE = args[0];
+        String nomEnseignant = args[1];
+        int heures = Integer.parseInt(args[2]);
+
+        // Vérifie que l'enseignant existe (ES-07 préalable)
+        if (noodle.getEnseignant(nomEnseignant) == null) {
+            throw new IllegalArgumentException("Enseignant inconnu : " + nomEnseignant);
+        }
+
+        // Retrouve l'UE globalement (sans diplôme)
+        UE ue = noodle.trouverUEUnique(nomUE);
+
+        // Affecte l'enseignant à l'UE
+        ue.affecterEnseignant(nomEnseignant, heures);
+
+        System.out.println(
+                nomEnseignant + " affecté à l'UE " + ue.nomUE + " pour " + heures + " heures"
+        );
+    }
+
+
+
+
 
 
 

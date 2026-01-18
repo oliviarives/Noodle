@@ -12,6 +12,24 @@ public class Noodle {
         this.diplomeHashMap = new HashMap<>();
     }
 
+    public void creerEnseignant(String prenom, String nom) {
+        String id = prenom + " " + nom;
+
+        if (enseignantsByNom.containsKey(id)) {
+            throw new IllegalArgumentException(
+                    "Enseignant déjà existant : " + id
+            );
+        }
+
+        enseignantsByNom.put(id, new Enseignant(prenom, nom));
+    }
+
+    public Enseignant getEnseignant(String nom) {
+        return enseignantsByNom.get(nom);
+    }
+
+
+
 
     public HashMap<String, Diplome> getDiplomeHashMap() {
         for (String nom : diplomeHashMap.keySet()) {
@@ -200,6 +218,30 @@ public class Noodle {
 
         throw new IllegalArgumentException("Aucun diplôme, UE ou enseignant ne correspond à: " + name);
     }
+
+    public UE trouverUEUnique(String nomUE) {
+        UE found = null;
+
+        for (Diplome d : diplomeHashMap.values()) {
+            for (UE ue : d.UEList) {
+                if (ue.nomUE.equals(nomUE)) {
+                    if (found != null) {
+                        throw new IllegalArgumentException(
+                                "UE ambiguë: '" + nomUE + "' existe dans plusieurs diplômes"
+                        );
+                    }
+                    found = ue;
+                }
+            }
+        }
+
+        if (found == null) {
+            throw new IllegalArgumentException("UE introuvable: " + nomUE);
+        }
+
+        return found;
+    }
+
 
 
 

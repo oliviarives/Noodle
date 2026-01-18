@@ -15,10 +15,10 @@ public enum Commande {
     HELP("HELP"),
     EXIT("EXIT"),
 
-    ALL("ALL"),
-    DIPLOME("DIPLOME"),
-    UE("UE"),
-    ENSEIGNANT("ENSEIGNANT"),
+    CREATE_TEACHER("CREATE TEACHER"),
+    ASSIGN("ASSIGN"),
+
+
     ;
 
     private final String label;

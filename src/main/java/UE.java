@@ -19,6 +19,16 @@ public class UE {
         this.tp = tp;
     }
 
+    public void affecterEnseignant(String nomEnseignant, int nbHeures) {
+        if (nbHeures <= 0) {
+            throw new IllegalArgumentException("Nombre d'heures invalide");
+        }
+
+        int actuel = heuresParEnseignant.getOrDefault(nomEnseignant, 0);
+        heuresParEnseignant.put(nomEnseignant, actuel + nbHeures);
+    }
+
+
     @Override
     public String toString() {
         return String.format("%s - %d ECTS (CM:%dh TD:%dh TP:%dh)",

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+
 public class Diplome {
     String nomDiplome;
     TypeDiplome type;
@@ -67,6 +69,14 @@ public class Diplome {
     public String toString() {
         return String.format("%s (%s, %d an(s), %d ECTS)",
                 nomDiplome, type, annee, ects);
+    }
+
+    public UE getDerniereUEAnnee(int annee) {
+        ArrayList<UE> ues = UEHashMap.get(annee);
+        if (ues == null || ues.isEmpty()) {
+            throw new IllegalStateException("Aucune UE dans l'année " + annee);
+        }
+        return ues.get(ues.size() - 1);
     }
 
 
