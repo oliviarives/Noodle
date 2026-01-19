@@ -404,6 +404,35 @@ public class Noodle implements Serializable {
     // =========================
     // ITE-5 - TRACE GRAPH (Graphviz DOT -> PNG)
     // =========================
+
+
+    public void traceGraphAll(String fileName) {
+        if (fileName == null || fileName.isBlank()) {
+            throw new IllegalArgumentException("Nom de fichier vide");
+        }
+
+        if (diplomeHashMap.isEmpty()) {
+            throw new IllegalStateException("Aucun diplome a tracer (ALL).");
+        }
+
+        // Normaliser extension
+        if (!fileName.toLowerCase().endsWith(".png")) {
+            fileName = fileName + ".png";
+        }
+
+        String dot = toDotAll();
+
+        // Fichier DOT temporaire
+        String dotFile = "ALL.dot";
+
+        writeTextFile(dotFile, dot);
+        runDot(dotFile, fileName);
+    }
+
+
+
+
+
     public void traceGraph(String diplomeName, String fileName) {
         if (diplomeName == null || diplomeName.isBlank()) {
             throw new IllegalArgumentException("Nom diplome vide");
@@ -427,6 +456,224 @@ public class Noodle implements Serializable {
         writeTextFile(dotFile, dot);
         runDot(dotFile, fileName);
     }
+
+
+    private String toDotAll() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("digraph G {\n");
+
+        // ---------- Graph (global) ----------
+        sb.append("  graph [\n");
+        sb.append("    rankdir=TB,\n");
+        sb.append("    splines=polyline,\n");
+        sb.append("    compound=true,\n");
+        sb.append("    nodesep=0.45,\n");
+        sb.append("    ranksep=0.85,\n");
+        sb.append("    pad=0.25,\n");
+        sb.append("    bgcolor=\"white\",\n");
+        sb.append("    fontname=\"Helvetica\"\n");
+        sb.append("  ];\n");
+
+        // ---------- Edges (global) ----------
+        sb.append("  edge [\n");
+        sb.append("    color=\"#64748B\",\n");
+        sb.append("    penwidth=1.2,\n");
+        sb.append("    arrowsize=0.8\n");
+        sb.append("  ];\n");
+
+        // ---------- Nodes (global) ----------
+        sb.append("  node [\n");
+        sb.append("    fontname=\"Helvetica\",\n");
+        sb.append("    fontsize=11,\n");
+        sb.append("    shape=box,\n");
+        sb.append("    style=\"rounded,filled\",\n");
+        sb.append("    color=\"#CBD5E1\",\n");
+        sb.append("    penwidth=1.2,\n");
+        sb.append("    fillcolor=\"#F8FAFC\"\n");
+        sb.append("  ];\n\n");
+
+        // ---------- Root "ALL" ----------
+        String rootId = "ROOT_ALL";
+        sb.append("  ").append(rootId).append(" [");
+        sb.append("shape=box, style=\"rounded,filled\", penwidth=1.8, ");
+        sb.append("color=\"#0F172A\", fillcolor=\"#DBEAFE\", ");
+        sb.append("label=<\n");
+        sb.append("    <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"8\">\n");
+        sb.append("      <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"16\">OFFRE DE FORMATION</FONT></B></TD></TR>\n");
+        sb.append("      <TR><TD ALIGN=\"CENTER\"><FONT POINT-SIZE=\"11\" COLOR=\"#0F172A\">ALL</FONT></TD></TR>\n");
+        sb.append("    </TABLE>\n");
+        sb.append("  >];\n\n");
+
+        sb.append("  { rank=source; ").append(rootId).append("; }\n\n");
+
+        // Trier les diplômes par nom pour un rendu stable
+        ArrayList<Diplome> dips = new ArrayList<>(diplomeHashMap.values());
+        dips.sort((a, b) -> a.nomDiplome.compareToIgnoreCase(b.nomDiplome));
+
+        // On mémorise les noeuds diplômes pour les aligner en ligne sous ROOT
+        ArrayList<String> dipNodeIds = new ArrayList<>();
+
+        // ---------- Diplomas blocks ----------
+        for (Diplome dip : dips) {
+            String dipId = "DIP_" + safeId(dip.nomDiplome);
+            dipNodeIds.add(dipId);
+
+            // Noeud diplome
+            sb.append("  ").append(dipId).append(" [");
+            sb.append("shape=box, style=\"rounded,filled\", penwidth=1.6, ");
+            sb.append("color=\"#0F172A\", fillcolor=\"#E0F2FE\", ");
+            sb.append("label=<\n");
+            sb.append("    <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"8\">\n");
+            sb.append("      <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"14\">")
+                    .append(escapeHtml(dip.nomDiplome))
+                    .append("</FONT></B></TD></TR>\n");
+            sb.append("      <TR><TD ALIGN=\"CENTER\"><FONT POINT-SIZE=\"10\" COLOR=\"#0F172A\">")
+                    .append(escapeHtml(String.valueOf(dip.type)))
+                    .append("</FONT></TD></TR>\n");
+            sb.append("    </TABLE>\n");
+            sb.append("  >];\n\n");
+
+            // Flèche ALL -> Diplôme
+            sb.append("  ").append(rootId).append(" -> ").append(dipId).append(" [weight=40, minlen=2];\n\n");
+
+            // Sous-graphe du diplôme : années + UE (comme ton rendu actuel)
+            appendDiplomeGraph(sb, dip, dipId);
+        }
+
+        // Aligner les diplômes sur une même ligne
+        if (!dipNodeIds.isEmpty()) {
+            sb.append("  { rank=same; ");
+            for (String id : dipNodeIds) sb.append(id).append("; ");
+            sb.append("}\n");
+
+            // Stabiliser gauche->droite
+            sb.append("  ");
+            for (int i = 0; i < dipNodeIds.size() - 1; i++) {
+                sb.append(dipNodeIds.get(i)).append(" -> ");
+            }
+            sb.append(dipNodeIds.get(dipNodeIds.size() - 1))
+                    .append(" [style=invis, constraint=false];\n\n");
+        }
+
+        // ---------- Legend ----------
+        sb.append("  subgraph cluster_legend {\n");
+        sb.append("    label=\"Légende\";\n");
+        sb.append("    labelloc=t;\n");
+        sb.append("    labeljust=l;\n");
+        sb.append("    fontsize=12;\n");
+        sb.append("    style=\"rounded\";\n");
+        sb.append("    color=\"#CBD5E1\";\n");
+        sb.append("    bgcolor=\"#FFFFFF\";\n");
+        sb.append("    penwidth=1.0;\n");
+        sb.append("    Legend1 [shape=box, style=\"rounded,filled\", color=\"#DC2626\", fillcolor=\"#FEE2E2\", label=\"UE : couverture < 50%\"];\n");
+        sb.append("    Legend2 [shape=box, style=\"rounded,filled\", color=\"#D97706\", fillcolor=\"#FEF3C7\", label=\"UE : 50% à 79%\"];\n");
+        sb.append("    Legend3 [shape=box, style=\"rounded,filled\", color=\"#16A34A\", fillcolor=\"#DCFCE7\", label=\"UE : >= 80%\"];\n");
+        sb.append("  }\n");
+
+        sb.append("}\n");
+        return sb.toString();
+    }
+
+    /**
+     * Ajoute pour un diplôme : conteneurs Année X avec les UE dedans,
+     * et une flèche qui touche le bord du conteneur (via port invisible + lhead).
+     *
+     * IMPORTANT : clusterId doit être unique à l'échelle du graphe ALL,
+     * donc on le préfixe avec dipId.
+     */
+    private void appendDiplomeGraph(StringBuilder sb, Diplome dip, String dipId) {
+        for (int year = 1; year <= dip.annee; year++) {
+            String clusterId = "cluster_" + dipId + "_Y" + year;
+
+            sb.append("  subgraph ").append(clusterId).append(" {\n");
+            sb.append("    label=\"Année ").append(year).append("\";\n");
+            sb.append("    labelloc=t;\n");
+            sb.append("    labeljust=l;\n");
+            sb.append("    fontsize=13;\n");
+            sb.append("    fontname=\"Helvetica\";\n");
+            sb.append("    style=\"rounded\";\n");
+            sb.append("    color=\"#CBD5E1\";\n");
+            sb.append("    bgcolor=\"#F8FAFC\";\n");
+            sb.append("    penwidth=1.2;\n\n");
+
+            // Port au bord haut du conteneur (pour que la flèche ne "rentre" pas)
+            String portId = dipId + "_Y" + year + "_PORT";
+            sb.append("    ").append(portId).append(" [shape=point, width=0.01, label=\"\", style=invis];\n");
+            sb.append("    { rank=min; ").append(portId).append("; }\n\n");
+
+            ArrayList<UE> ues = dip.UEHashMap.get(year);
+            if (ues != null) {
+                ues.sort((a, b) -> a.nomUE.compareToIgnoreCase(b.nomUE));
+            }
+
+            ArrayList<String> contentIds = new ArrayList<>();
+
+            if (ues != null && !ues.isEmpty()) {
+                for (UE ue : ues) {
+                    String ueId = dipId + "_Y" + year + "_UE_" + safeId(ue.nomUE);
+                    contentIds.add(ueId);
+
+                    int cover = ue.getCover();
+                    String ueFill = coverFillColor(cover);
+                    String ueBorder = coverBorderColor(cover);
+
+                    // enseignants + reste à couvrir (comme tu as maintenant)
+                    String teachersHtml = teachersHtml(ue);
+                    int remaining = remainingHours(ue);
+                    String remainingHtml = remainingHtml(remaining);
+
+                    String ueLabelHtml =
+                            "<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"6\">" +
+                                    "<TR><TD ALIGN=\"LEFT\"><B><FONT POINT-SIZE=\"13\">" + escapeHtml(ue.nomUE) + "</FONT></B></TD></TR>" +
+                                    "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"10\" COLOR=\"#334155\">" + ue.ects + " ECTS</FONT></TD></TR>" +
+                                    "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"10\" COLOR=\"#334155\">" +
+                                    ue.cm + " CM  •  " + ue.td + " TD  •  " + ue.tp + " TP" +
+                                    "</FONT></TD></TR>" +
+                                    teachersHtml +
+                                    remainingHtml +
+                                    "</TABLE>";
+
+                    sb.append("    ").append(ueId).append(" [");
+                    sb.append("shape=box, style=\"rounded,filled\", penwidth=1.4, ");
+                    sb.append("color=\"").append(ueBorder).append("\", ");
+                    sb.append("fillcolor=\"").append(ueFill).append("\", ");
+                    sb.append("label=<").append(ueLabelHtml).append(">");
+                    sb.append("];\n");
+                }
+            } else {
+                String emptyId = dipId + "_Y" + year + "_EMPTY";
+                contentIds.add(emptyId);
+
+                sb.append("    ").append(emptyId).append(" [");
+                sb.append("shape=box, style=\"rounded,filled\", penwidth=1.0, ");
+                sb.append("color=\"#CBD5E1\", fillcolor=\"#FFFFFF\", ");
+                sb.append("fontcolor=\"#64748B\", label=\"(Aucune UE)\"");
+                sb.append("];\n");
+            }
+
+            // Placement interne : empilement vertical
+            if (!contentIds.isEmpty()) {
+                sb.append("\n");
+                sb.append("    ").append(portId).append(" -> ").append(contentIds.get(0))
+                        .append(" [style=invis, weight=50, minlen=1];\n");
+                for (int i = 0; i < contentIds.size() - 1; i++) {
+                    sb.append("    ").append(contentIds.get(i)).append(" -> ").append(contentIds.get(i + 1))
+                            .append(" [style=invis, weight=40, minlen=1];\n");
+                }
+            }
+
+            sb.append("  }\n\n");
+
+            // Flèche visible : diplôme -> bord du conteneur année
+            sb.append("  ").append(dipId).append(" -> ").append(portId)
+                    .append(" [weight=30, minlen=2, lhead=").append(clusterId).append("];\n\n");
+        }
+    }
+
+
+
+
 
     private String toDot(Diplome dip) {
         StringBuilder sb = new StringBuilder();

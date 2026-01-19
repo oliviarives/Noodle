@@ -146,7 +146,8 @@ public class ConsoleApp {
         System.out.println("  ASSIGN UE <name> <diplome> <year>");
         System.out.println("  GET SEANCE <name>   (name = ALL | nomDiplome | nomUE)");
         System.out.println("  GET COVER <name>   (name = ALL | nomDiplome | nomUE)");
-        System.out.println("  TRACE GRAPH <diplome> <filename.png>");
+        System.out.println("  TRACE GRAPH <diplome|ALL> <filename.png>");
+
 
         System.out.println("  HELP");
         System.out.println("  EXIT");
@@ -382,15 +383,19 @@ public class ConsoleApp {
 
     private void handleTraceGraph(String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("Usage: TRACE GRAPH <diplome> <filename.png>");
+            throw new IllegalArgumentException("Usage: TRACE GRAPH <diplome|ALL> <filename.png>");
         }
 
-        String diplomeName = args[0];
+        String target = args[0];
         String fileName = args[1];
 
-        noodle.traceGraph(diplomeName, fileName);
-
-        System.out.println("Graphe genere: " + fileName);
+        if (target.equalsIgnoreCase("ALL")) {
+            noodle.traceGraphAll(fileName);
+            System.out.println("Graphe ALL genere: " + fileName);
+        } else {
+            noodle.traceGraph(target, fileName);
+            System.out.println("Graphe genere: " + fileName);
+        }
     }
 
 

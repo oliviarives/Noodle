@@ -1,37 +1,235 @@
-# ---------- Diplôme ----------
-CREATE DEGREE LicenceProInfo LICENCE 3 200 180
-SELECT DEGREE LicenceProInfo
+# =========================
+# TEST BIG - Beaucoup de diplômes + TRACE GRAPH ALL
+# =========================
 
-# ---------- Année 1 ----------
-SELECT YEAR 1
-CREATE UE GestionProjet 6 8 10 0
-CREATE UE Python 15 10 10 10
-CREATE UE UML 6 10 10 0
-
-# ---------- Année 2 ----------
-SELECT YEAR 2
-CREATE UE Cloud 6 6 6 0
-CREATE UE DevWeb 8 6 6 10
-CREATE UE JavaAvance 10 10 10 0
-
-# ---------- Année 3 (vide pour montrer le placeholder) ----------
-SELECT YEAR 3
+# ---------- Diplômes ----------
+CREATE DEGREE LicenceProInfo LICENCE 3 120 180
+CREATE DEGREE LicenceMIASHS LICENCE 3 150 180
+CREATE DEGREE LicenceInfo LICENCE 3 200 180
+CREATE DEGREE LicenceEco LICENCE 3 180 180
+CREATE DEGREE LicenceMaths LICENCE 3 160 180
+CREATE DEGREE BUTInfo BUT 3 220 180
+CREATE DEGREE BUTGEA BUT 3 220 180
+CREATE DEGREE BUTTC BUT 3 220 180
+CREATE DEGREE MasterInfo MASTER 2 60 120
+CREATE DEGREE MasterData MASTER 2 60 120
+CREATE DEGREE MasterMIAGE MASTER 2 60 120
+CREATE DEGREE MasterEco MASTER 2 60 120
 
 # ---------- Enseignants ----------
 CREATE TEACHER Dupont Jean
-CREATE TEACHER Durand Alice
-CREATE TEACHER Martin Hugo
+CREATE TEACHER Martin Alice
+CREATE TEACHER Durand Paul
+CREATE TEACHER Bernard Lea
+CREATE TEACHER Petit Hugo
+CREATE TEACHER Robert Nina
+CREATE TEACHER Moreau Sami
+CREATE TEACHER Fontaine Emma
 
-# ---------- Affectations ----------
-ASSIGN Python Dupont 10
-ASSIGN Python Durand 5
-ASSIGN UML Martin 8
-ASSIGN DevWeb Durand 12
-ASSIGN JavaAvance Dupont 15
+# =========================
+# LicenceProInfo (3 ans)
+# =========================
+SELECT DEGREE LicenceProInfo
+SELECT YEAR 1
+CREATE UE LPI_GestionProjet 6 8 10 0
+CREATE UE LPI_Python 15 10 10 10
+CREATE UE LPI_UML 6 10 10 0
+SELECT YEAR 2
+CREATE UE LPI_Cloud 6 6 6 0
+CREATE UE LPI_DevWeb 8 6 6 10
+CREATE UE LPI_JavaAvance 10 10 10 0
+SELECT YEAR 3
+CREATE UE LPI_Stage 12 0 0 0
 
-# ---------- Sorties ----------
-DISPLAY GRAPH LicenceProInfo
-TRACE GRAPH LicenceProInfo licenceproinfo_demo.png
+ASSIGN LPI_GestionProjet Dupont 10
+ASSIGN LPI_Python Martin 15
+ASSIGN LPI_Python Dupont 5
+ASSIGN LPI_UML Durand 10
+ASSIGN LPI_Cloud Martin 6
+ASSIGN LPI_DevWeb Dupont 8
+ASSIGN LPI_JavaAvance Martin 10
 
-# Optionnel (si tu as plusieurs diplômes) :
-# TRACE GRAPH ALL offre_complete.png
+# =========================
+# LicenceMIASHS (3 ans)
+# =========================
+SELECT DEGREE LicenceMIASHS
+SELECT YEAR 1
+CREATE UE LMI_Maths 10 10 10 0
+CREATE UE LMI_Stats 10 8 8 0
+SELECT YEAR 2
+CREATE UE LMI_Economie 6 6 6 0
+CREATE UE LMI_Prog 6 6 6 0
+SELECT YEAR 3
+# vide
+
+ASSIGN LMI_Maths Durand 10
+ASSIGN LMI_Stats Dupont 6
+ASSIGN LMI_Economie Martin 4
+ASSIGN LMI_Prog Bernard 6
+
+# =========================
+# LicenceInfo (3 ans)
+# =========================
+SELECT DEGREE LicenceInfo
+SELECT YEAR 1
+CREATE UE LIN_Algo1 6 10 10 0
+CREATE UE LIN_Prog1 6 10 10 10
+SELECT YEAR 2
+CREATE UE LIN_BDD 6 8 8 0
+CREATE UE LIN_Reseaux 6 8 8 0
+SELECT YEAR 3
+CREATE UE LIN_Projet 6 0 20 0
+
+ASSIGN LIN_Algo1 Moreau 8
+ASSIGN LIN_Prog1 Martin 12
+ASSIGN LIN_BDD Dupont 6
+ASSIGN LIN_Reseaux Durand 6
+ASSIGN LIN_Projet Bernard 10
+
+# =========================
+# LicenceEco (3 ans)
+# =========================
+SELECT DEGREE LicenceEco
+SELECT YEAR 1
+CREATE UE LEC_Micro 6 10 10 0
+CREATE UE LEC_Macro 6 10 10 0
+SELECT YEAR 2
+CREATE UE LEC_Compta 6 8 8 0
+SELECT YEAR 3
+CREATE UE LEC_Finance 6 8 8 0
+
+ASSIGN LEC_Micro Robert 8
+ASSIGN LEC_Macro Robert 8
+ASSIGN LEC_Compta Petit 6
+ASSIGN LEC_Finance Petit 6
+
+# =========================
+# LicenceMaths (3 ans)
+# =========================
+SELECT DEGREE LicenceMaths
+SELECT YEAR 1
+CREATE UE LMA_Analyse 6 10 10 0
+CREATE UE LMA_Algebre 6 10 10 0
+SELECT YEAR 2
+CREATE UE LMA_Proba 6 8 8 0
+SELECT YEAR 3
+CREATE UE LMA_Modelisation 6 6 6 0
+
+ASSIGN LMA_Analyse Durand 10
+ASSIGN LMA_Algebre Durand 10
+ASSIGN LMA_Proba Fontaine 6
+ASSIGN LMA_Modelisation Fontaine 4
+
+# =========================
+# BUTInfo (3 ans)
+# =========================
+SELECT DEGREE BUTInfo
+SELECT YEAR 1
+CREATE UE BIN_Dev1 6 6 10 10
+CREATE UE BIN_BDD1 6 6 10 0
+SELECT YEAR 2
+CREATE UE BIN_Dev2 6 6 10 10
+CREATE UE BIN_SI 6 10 10 0
+SELECT YEAR 3
+CREATE UE BIN_Alternance 12 0 0 0
+
+ASSIGN BIN_Dev1 Martin 10
+ASSIGN BIN_BDD1 Dupont 6
+ASSIGN BIN_Dev2 Martin 10
+ASSIGN BIN_SI Bernard 10
+
+# =========================
+# BUTGEA (3 ans)
+# =========================
+SELECT DEGREE BUTGEA
+SELECT YEAR 1
+CREATE UE BGEA_Gestion 6 10 10 0
+CREATE UE BGEA_Droit 6 10 10 0
+SELECT YEAR 2
+CREATE UE BGEA_Marketing 6 8 8 0
+SELECT YEAR 3
+# vide
+
+ASSIGN BGEA_Gestion Robert 10
+ASSIGN BGEA_Droit Petit 6
+ASSIGN BGEA_Marketing Robert 6
+
+# =========================
+# BUTTC (3 ans)
+# =========================
+SELECT DEGREE BUTTC
+SELECT YEAR 1
+CREATE UE BTC_Nego 6 8 8 0
+SELECT YEAR 2
+CREATE UE BTC_Digital 6 6 6 10
+SELECT YEAR 3
+CREATE UE BTC_Projet 6 0 20 0
+
+ASSIGN BTC_Nego Petit 6
+ASSIGN BTC_Digital Bernard 8
+ASSIGN BTC_Projet Petit 10
+
+# =========================
+# MasterInfo (2 ans)
+# =========================
+SELECT DEGREE MasterInfo
+SELECT YEAR 1
+CREATE UE MIN_Cloud 6 8 8 0
+CREATE UE MIN_Secu 6 8 8 0
+SELECT YEAR 2
+CREATE UE MIN_Memoire 12 0 0 0
+
+ASSIGN MIN_Cloud Durand 6
+ASSIGN MIN_Secu Moreau 6
+
+# =========================
+# MasterData (2 ans)
+# =========================
+SELECT DEGREE MasterData
+SELECT YEAR 1
+CREATE UE MDA_ML 6 10 10 0
+CREATE UE MDA_DataViz 6 6 10 0
+SELECT YEAR 2
+CREATE UE MDA_Stage 12 0 0 0
+
+ASSIGN MDA_ML Fontaine 8
+ASSIGN MDA_DataViz Martin 6
+
+# =========================
+# MasterMIAGE (2 ans)
+# =========================
+SELECT DEGREE MasterMIAGE
+SELECT YEAR 1
+CREATE UE MMI_ArchSI 6 10 10 0
+CREATE UE MMI_DevAvance 6 6 10 10
+SELECT YEAR 2
+CREATE UE MMI_ProjetLong 12 0 0 0
+
+ASSIGN MMI_ArchSI Bernard 8
+ASSIGN MMI_DevAvance Martin 10
+
+# =========================
+# MasterEco (2 ans)
+# =========================
+SELECT DEGREE MasterEco
+SELECT YEAR 1
+CREATE UE MEC_EcoAvance 6 10 10 0
+SELECT YEAR 2
+CREATE UE MEC_Stage 12 0 0 0
+
+ASSIGN MEC_EcoAvance Robert 8
+
+# =========================
+# Stats globales
+# =========================
+GET TOTAL ALL
+GET COVER ALL
+GET SEANCE ALL
+
+# =========================
+# Graphes : ALL
+# =========================
+TRACE GRAPH ALL offre_big.png
+
+# (Optionnel) un diplôme pour vérifier vite
+TRACE GRAPH LicenceProInfo licenceproinfo_big.png
