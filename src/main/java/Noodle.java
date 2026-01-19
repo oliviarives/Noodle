@@ -437,7 +437,7 @@ public class Noodle implements Serializable {
         sb.append("  graph [\n");
         sb.append("    rankdir=TB,\n");
         sb.append("    splines=polyline,\n");
-        sb.append("    compound=true,\n"); // IMPORTANT pour lhead/ltail (clusters)
+        sb.append("    compound=true,\n");
         sb.append("    nodesep=0.45,\n");
         sb.append("    ranksep=0.85,\n");
         sb.append("    pad=0.25,\n");
@@ -480,10 +480,9 @@ public class Noodle implements Serializable {
         sb.append("    </TABLE>\n");
         sb.append("  >];\n\n");
 
-        // Forcer le diplôme seul en haut
         sb.append("  { rank=source; ").append(dipId).append("; }\n\n");
 
-        // ---------- Years: ONE container per year (cluster has title + contains UEs) ----------
+        // ---------- Years containers ----------
         for (int year = 1; year <= dip.annee; year++) {
             String clusterId = "cluster_" + dipId + "_Y" + year;
 
@@ -493,13 +492,12 @@ public class Noodle implements Serializable {
             sb.append("    labeljust=l;\n");
             sb.append("    fontsize=13;\n");
             sb.append("    fontname=\"Helvetica\";\n");
-
             sb.append("    style=\"rounded\";\n");
             sb.append("    color=\"#CBD5E1\";\n");
             sb.append("    bgcolor=\"#F8FAFC\";\n");
             sb.append("    penwidth=1.2;\n\n");
 
-            // Port en haut du conteneur : la flèche vise ce point (et s'arrête au bord du cluster)
+            // Port au bord haut du conteneur
             String portId = dipId + "_Y" + year + "_PORT";
             sb.append("    ").append(portId).append(" [shape=point, width=0.01, label=\"\", style=invis];\n");
             sb.append("    { rank=min; ").append(portId).append("; }\n\n");
@@ -520,6 +518,11 @@ public class Noodle implements Serializable {
                     String ueFill = coverFillColor(cover);
                     String ueBorder = coverBorderColor(cover);
 
+                    // ----- enseignants + reste à couvrir -----
+                    String teachersHtml = teachersHtml(ue);
+                    int remaining = remainingHours(ue);
+                    String remainingHtml = remainingHtml(remaining);
+
                     String ueLabelHtml =
                             "<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"6\">" +
                                     "<TR><TD ALIGN=\"LEFT\"><B><FONT POINT-SIZE=\"13\">" + escapeHtml(ue.nomUE) + "</FONT></B></TD></TR>" +
@@ -527,6 +530,8 @@ public class Noodle implements Serializable {
                                     "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"10\" COLOR=\"#334155\">" +
                                     ue.cm + " CM  •  " + ue.td + " TD  •  " + ue.tp + " TP" +
                                     "</FONT></TD></TR>" +
+                                    teachersHtml +
+                                    remainingHtml +
                                     "</TABLE>";
 
                     sb.append("    ").append(ueId).append(" [");
@@ -547,7 +552,7 @@ public class Noodle implements Serializable {
                 sb.append("];\n");
             }
 
-            // Placement interne : empilement vertical, SANS flèches visibles
+            // Placement interne : empilement vertical
             if (!contentIds.isEmpty()) {
                 sb.append("\n");
                 sb.append("    ").append(portId).append(" -> ").append(contentIds.get(0))
@@ -560,7 +565,7 @@ public class Noodle implements Serializable {
 
             sb.append("  }\n\n");
 
-            // Flèche visible : diplôme -> port (avec lhead pour que la flèche "touche" le conteneur)
+            // Flèche diplôme -> bord du conteneur
             sb.append("  ").append(dipId).append(" -> ").append(portId)
                     .append(" [weight=30, minlen=2, lhead=").append(clusterId).append("];\n\n");
         }
@@ -582,6 +587,47 @@ public class Noodle implements Serializable {
 
         sb.append("}\n");
         return sb.toString();
+    }
+
+    // =========================
+    // Helpers GRAPH: enseignants + reste
+    // =========================
+
+    private int remainingHours(UE ue) {
+        int total = ue.getTotalHeures();        // idéal si tu as cette méthode
+        int assigned = ue.getHeuresAffectees(); // idéal si tu as cette méthode
+        int remaining = total - assigned;
+        return Math.max(0, remaining);
+    }
+
+    private String teachersHtml(UE ue) {
+        HashMap<String, Integer> map = ue.getHeuresParEnseignant();
+        if (map == null || map.isEmpty()) {
+            return "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"9\" COLOR=\"#64748B\">(Aucun enseignant)</FONT></TD></TR>";
+        }
+
+        ArrayList<String> noms = new ArrayList<>(map.keySet());
+        noms.sort(String::compareToIgnoreCase);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"9\" COLOR=\"#334155\"><B>Enseignants :</B></FONT></TD></TR>");
+
+        for (String nom : noms) {
+            int h = map.getOrDefault(nom, 0);
+            sb.append("<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"9\" COLOR=\"#334155\">")
+                    .append(escapeHtml(nom)).append(" (").append(h).append("h)")
+                    .append("</FONT></TD></TR>");
+        }
+
+        return sb.toString();
+    }
+
+    private String remainingHtml(int remaining) {
+        if (remaining <= 0) {
+            return ""; // rien si tout est couvert
+        }
+        return "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"9\" COLOR=\"#B91C1C\"><B>Reste à couvrir : "
+                + remaining + "h</B></FONT></TD></TR>";
     }
 
     // ---------- Couleurs couverture ----------
@@ -606,7 +652,7 @@ public class Noodle implements Serializable {
                 .replace("\"", "&quot;");
     }
 
-    // ---------- Barre de progression (non utilisée dans le label UE actuel, mais conservée si besoin) ----------
+    // ---------- Barre de progression (pas utilisée ici, mais conservée) ----------
     private String coverBarHtml(int cover) {
         int w = 120;
         int filled = (int) Math.round(w * (cover / 100.0));
@@ -657,10 +703,9 @@ public class Noodle implements Serializable {
         return s.replaceAll("[^a-zA-Z0-9_]", "_");
     }
 
-    // (Optionnel) utile seulement si tu as encore des label="..."
+    // Optionnel
     private String escape(String s) {
         if (s == null) return "";
         return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }
-
