@@ -429,6 +429,8 @@ public class ConsoleApp {
 
 
     public void runScript(String filePath) {
+        System.out.println("Working dir = " + System.getProperty("user.dir"));
+
         java.nio.file.Path path = java.nio.file.Paths.get(filePath);
         if (!java.nio.file.Files.exists(path)) {
             throw new IllegalArgumentException("Fichier introuvable: " + filePath);
