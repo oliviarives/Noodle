@@ -1,3 +1,0 @@
-Voir pour factoriser du code entre la méthode créer UE dans la classe Diplome et assigner UE dans Noodle. On peut faire appel à assignerUE dans créer UE.
-
-hkh

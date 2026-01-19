@@ -1,25 +1,38 @@
 public enum Commande {
 
+    // ITE-1
     CREATE_DEGREE("CREATE DEGREE"),
     SELECT_DEGREE("SELECT DEGREE"),
     SELECT_YEAR("SELECT YEAR"),
     CREATE_UE("CREATE UE"),
-
-    DELETE_UE("DELETE UE"),
-
-    GET_TOTAL("GET TOTAL"),
-
-
     DISPLAY_GRAPH("DISPLAY GRAPH"),
     LIST_DEGREES("LIST DEGREES"),
-    HELP("HELP"),
-    EXIT("EXIT"),
 
+    // ITE-2
+    DELETE_UE("DELETE UE"),
+    GET_TOTAL("GET TOTAL"),
+
+    // ITE-3
     CREATE_TEACHER("CREATE TEACHER"),
     ASSIGN("ASSIGN"),
 
+    // ITE-4
+    EDIT_UE("EDIT UE"),
+    ASSIGN_UE("ASSIGN UE"),
+    GET_COVER("GET COVER"),
+    GET_SEANCE("GET SEANCE"),
 
-    ;
+    TRACE_GRAPH("TRACE GRAPH"),
+
+    RUN("RUN"),
+
+
+
+
+
+
+    HELP("HELP"),
+    EXIT("EXIT");
 
     private final String label;
 
@@ -27,6 +40,10 @@ public enum Commande {
         this.label = label;
     }
 
+    /**
+     * Detecte la commande en prefixe. Si plusieurs commandes matchent, on garde le label le plus long.
+     * Exemple: "GET TOTAL ALL" doit matcher GET_TOTAL.
+     */
     public static Commande fromInput(String input) {
         String normalized = input.trim().toUpperCase();
 

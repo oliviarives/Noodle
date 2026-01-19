@@ -1,0 +1,206 @@
+digraph G {
+  graph [
+    rankdir=TB,
+    splines=polyline,
+    compound=true,
+    nodesep=0.45,
+    ranksep=0.85,
+    pad=0.25,
+    bgcolor="white",
+    fontname="Helvetica"
+  ];
+  edge [
+    color="#64748B",
+    penwidth=1.2,
+    arrowsize=0.8
+  ];
+  node [
+    fontname="Helvetica",
+    fontsize=11,
+    shape=box,
+    style="rounded,filled",
+    color="#CBD5E1",
+    penwidth=1.2,
+    fillcolor="#F8FAFC"
+  ];
+
+  DIP_LicenceProInfo [shape=box, style="rounded,filled", penwidth=1.6, color="#0F172A", fillcolor="#E0F2FE", label=<
+    <TABLE BORDER="0" CELLBORDER="0" CELLPADDING="8">
+      <TR><TD ALIGN="CENTER"><B><FONT POINT-SIZE="16">LicenceProInfo</FONT></B></TD></TR>
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="11" COLOR="#0F172A">LICENCE</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  { rank=source; DIP_LicenceProInfo; }
+
+  subgraph cluster_DIP_LicenceProInfo_Y1 {
+    label="Année 1";
+    labelloc=t;
+    labeljust=l;
+    fontsize=13;
+    fontname="Helvetica";
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#F8FAFC";
+    penwidth=1.2;
+
+    DIP_LicenceProInfo_Y1_PORT [shape=point, width=0.01, label="", style=invis];
+    { rank=min; DIP_LicenceProInfo_Y1_PORT; }
+
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">GestionProjet</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#16A34A", fillcolor="#DCFCE7", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  12 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_Python [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Python</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">15 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y1_UE_UML [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">UML</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+
+    DIP_LicenceProInfo_Y1_PORT -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=50, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_GestionProjet [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_GestionProjet -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_Python [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_Python -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y1_UE_UML -> DIP_LicenceProInfo_Y1_UE_UML [style=invis, weight=40, minlen=1];
+  }
+
+  DIP_LicenceProInfo -> DIP_LicenceProInfo_Y1_PORT [weight=30, minlen=2, lhead=cluster_DIP_LicenceProInfo_Y1];
+
+  subgraph cluster_DIP_LicenceProInfo_Y2 {
+    label="Année 2";
+    labelloc=t;
+    labeljust=l;
+    fontsize=13;
+    fontname="Helvetica";
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#F8FAFC";
+    penwidth=1.2;
+
+    DIP_LicenceProInfo_Y2_PORT [shape=point, width=0.01, label="", style=invis];
+    { rank=min; DIP_LicenceProInfo_Y2_PORT; }
+
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_Cloud [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">Cloud</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#D97706", fillcolor="#FEF3C7", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_DevWeb [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">DevWeb</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">8 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 CM  •  6 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#D97706", fillcolor="#FEF3C7", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">JavaAvance</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  10 TD  •  0 TP</FONT></TD></TR></TABLE>>];
+
+    DIP_LicenceProInfo_Y2_PORT -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=50, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_Cloud [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_Cloud -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_DevWeb [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_DevWeb -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+    DIP_LicenceProInfo_Y2_UE_JavaAvance -> DIP_LicenceProInfo_Y2_UE_JavaAvance [style=invis, weight=40, minlen=1];
+  }
+
+  DIP_LicenceProInfo -> DIP_LicenceProInfo_Y2_PORT [weight=30, minlen=2, lhead=cluster_DIP_LicenceProInfo_Y2];
+
+  subgraph cluster_DIP_LicenceProInfo_Y3 {
+    label="Année 3";
+    labelloc=t;
+    labeljust=l;
+    fontsize=13;
+    fontname="Helvetica";
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#F8FAFC";
+    penwidth=1.2;
+
+    DIP_LicenceProInfo_Y3_PORT [shape=point, width=0.01, label="", style=invis];
+    { rank=min; DIP_LicenceProInfo_Y3_PORT; }
+
+    DIP_LicenceProInfo_Y3_UE_IA [shape=box, style="rounded,filled", penwidth=1.4, color="#16A34A", fillcolor="#DCFCE7", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">IA</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">10 CM  •  5 TD  •  2 TP</FONT></TD></TR></TABLE>>];
+
+    DIP_LicenceProInfo_Y3_PORT -> DIP_LicenceProInfo_Y3_UE_IA [style=invis, weight=50, minlen=1];
+  }
+
+  DIP_LicenceProInfo -> DIP_LicenceProInfo_Y3_PORT [weight=30, minlen=2, lhead=cluster_DIP_LicenceProInfo_Y3];
+
+  subgraph cluster_legend {
+    label="Légende";
+    labelloc=t;
+    labeljust=l;
+    fontsize=12;
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#FFFFFF";
+    penwidth=1.0;
+    Legend1 [shape=box, style="rounded,filled", color="#DC2626", fillcolor="#FEE2E2", label="UE : couverture < 50%"];
+    Legend2 [shape=box, style="rounded,filled", color="#D97706", fillcolor="#FEF3C7", label="UE : 50% à 79%"];
+    Legend3 [shape=box, style="rounded,filled", color="#16A34A", fillcolor="#DCFCE7", label="UE : >= 80%"];
+  }
+}

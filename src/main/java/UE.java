@@ -1,7 +1,8 @@
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class UE {
+public class UE implements Serializable {
+    private static final long serialVersionUID = 1L;
     String nomUE;
     int ects;
     int cm;
@@ -19,16 +20,6 @@ public class UE {
         this.tp = tp;
     }
 
-    public void affecterEnseignant(String nomEnseignant, int nbHeures) {
-        if (nbHeures <= 0) {
-            throw new IllegalArgumentException("Nombre d'heures invalide");
-        }
-
-        int actuel = heuresParEnseignant.getOrDefault(nomEnseignant, 0);
-        heuresParEnseignant.put(nomEnseignant, actuel + nbHeures);
-    }
-
-
     @Override
     public String toString() {
         return String.format("%s - %d ECTS (CM:%dh TD:%dh TP:%dh)",
@@ -40,6 +31,39 @@ public class UE {
     public HashMap<String, Integer> getHeuresParEnseignant() {
         return heuresParEnseignant;
     }
+
+    // =========================
+    // ITE-3 - Affectation enseignant -> UE
+    // =========================
+    public void affecterEnseignant(String nomEnseignant, int nbHeures) {
+        if (nbHeures <= 0) {
+            throw new IllegalArgumentException("Nombre d'heures invalide");
+        }
+
+        int actuel = heuresParEnseignant.getOrDefault(nomEnseignant, 0);
+        heuresParEnseignant.put(nomEnseignant, actuel + nbHeures);
+    }
+
+    public int getTotalHeures() {
+        return cm + td + tp;
+    }
+
+    public int getHeuresAffectees() {
+        int total = 0;
+        for (Integer h : heuresParEnseignant.values()) {
+            if (h != null) total += h;
+        }
+        return total;
+    }
+
+    public int getCover() {
+        int total = getTotalHeures();
+        if (total <= 0) return 0;
+
+        double p = (getHeuresAffectees() * 100.0) / total;
+        return (int) Math.round(p);
+    }
+
 
 
 

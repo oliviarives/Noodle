@@ -1,93 +1,65 @@
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
-public class Noodle {
+
+public class Noodle implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     HashMap<String, Diplome> diplomeHashMap = new HashMap<>();
-    HashMap<String, Enseignant> enseignantsByNom = new HashMap<>();
 
-    //HashMap<String, Enseignant> enseignantHashMap = new HashMap<>();
+    // cle = NOM de l'enseignant (identifiant)
+    HashMap<String, Enseignant> enseignantsByNom = new HashMap<>();
 
     public Noodle() {
         this.diplomeHashMap = new HashMap<>();
+        this.enseignantsByNom = new HashMap<>();
     }
 
-    public void creerEnseignant(String prenom, String nom) {
-        String id = prenom + " " + nom;
-
-        if (enseignantsByNom.containsKey(id)) {
-            throw new IllegalArgumentException(
-                    "Enseignant déjà existant : " + id
-            );
-        }
-
-        enseignantsByNom.put(id, new Enseignant(prenom, nom));
-    }
-
-    public Enseignant getEnseignant(String nom) {
-        return enseignantsByNom.get(nom);
-    }
-
-
-
-
-    public HashMap<String, Diplome> getDiplomeHashMap() {
-        for (String nom : diplomeHashMap.keySet()) {
-            //System.out.println("Nom du diplôme : " + diplomeHashMap.Diplome);
-        }
-        return diplomeHashMap;
-    }
+    // =========================
+    // Diplomes
+    // =========================
 
     public void afficherDiplomes() {
+        if (diplomeHashMap.isEmpty()) {
+            System.out.println("(Aucun diplome)");
+            return;
+        }
         diplomeHashMap.forEach((nomDiplome, d) -> System.out.println(nomDiplome + " : " + d));
     }
 
-    /*public HashMap<String, Enseignant> getEnseignantHashMap() {
-        return enseignantHashMap;
-    }*/
-
-    public Diplome creerDiplome(String nomDiplome, TypeDiplome type, int annee, int maxEtu, int ects){
-        // Verif si le diplome existe déjà
+    public Diplome creerDiplome(String nomDiplome, TypeDiplome type, int annee, int maxEtu, int ects) {
         if (diplomeHashMap.containsKey(nomDiplome)) {
-            throw new IllegalArgumentException("Un diplôme nommé '" + nomDiplome + "' existe déjà.");
-        } else {
-            // Ajout du diplome dans la HashMap
-            Diplome dip = new Diplome(nomDiplome, type, annee, maxEtu, ects);
-            diplomeHashMap.put(nomDiplome, dip);
-
-            int cpt = dip.annee;
-            while(cpt>0){
-                int cleAnnee = cpt;
-                ArrayList<UE> nouvelleListe = new ArrayList<>();
-                dip.UEHashMap.put(cleAnnee, nouvelleListe);
-                //System.out.println("Année "+ cleAnnee + " crée.");
-                cpt--;
-            }
-            System.out.println("Diplôme " + nomDiplome + " créé");
-            return dip;
+            throw new IllegalArgumentException("Un diplome nomme '" + nomDiplome + "' existe deja.");
         }
+        Diplome dip = new Diplome(nomDiplome, type, annee, maxEtu, ects);
+        diplomeHashMap.put(nomDiplome, dip);
+        System.out.println("Diplome " + nomDiplome + " cree");
+        return dip;
     }
 
+    public Diplome getDiplome(String nomDiplome) {
+        return diplomeHashMap.get(nomDiplome);
+    }
 
-    public void consulterAnneeDiplome (Diplome dip, int annee){
-        System.out.println("Liste des UE enseignées en année " + annee + " de " + dip.nomDiplome);
+    public void consulterAnneeDiplome(Diplome dip, int annee) {
+        System.out.println("Liste des UE enseignees en annee " + annee + " de " + dip.nomDiplome);
         ArrayList<UE> ues = dip.UEHashMap.get(annee);
         if (ues == null || ues.isEmpty()) {
             System.out.println("  (Aucune UE)");
             return;
         }
-
         for (int i = 0; i < ues.size(); i++) {
             System.out.println("  " + (i + 1) + ") " + ues.get(i));
         }
-
     }
 
     public void consulterDiplome(Diplome dip) {
-        System.out.println("Voici la liste des UE par années pour " + dip.nomDiplome + " :");
+        System.out.println("Voici la liste des UE par annees pour " + dip.nomDiplome + " :");
 
         dip.UEHashMap.forEach((Integer annee, ArrayList<UE> listUE) -> {
-            System.out.println("Année " + annee + " :");
+            System.out.println("Annee " + annee + " :");
 
             if (listUE.isEmpty()) {
                 System.out.println("  (Aucune UE)");
@@ -99,125 +71,57 @@ public class Noodle {
         });
     }
 
+    // =========================
+    // Enseignants (ITE-3)
+    // =========================
 
-    public Enseignant ajouterEnseigantUE(UE ue, Enseignant enseignant, int nbHeures) {
-        //on  ajoute l'enseignant à la HashMap de l'UE associé au nombre d'heures
-        ue.heuresParEnseignant.put(enseignant.name, nbHeures);
-        System.out.print("L'enseignant " + enseignant.name + " " + enseignant.firstName + " ajouté à l'UE "+ ue + " avec un volume de "+ nbHeures + "h");
-        return enseignant;
-
-    }
-
+    // ES-07
     public Enseignant enregistrerEnseignant(String nom, String prenom) {
+        if (nom == null || nom.isBlank()) {
+            throw new IllegalArgumentException("Nom enseignant vide");
+        }
+        if (prenom == null || prenom.isBlank()) {
+            throw new IllegalArgumentException("Prenom enseignant vide");
+        }
         if (enseignantsByNom.containsKey(nom)) {
-            throw new IllegalArgumentException("Enseignant déjà existant: " + nom);
+            throw new IllegalArgumentException("Enseignant deja existant: " + nom);
         }
         Enseignant e = new Enseignant(nom, prenom);
         enseignantsByNom.put(nom, e);
         return e;
     }
 
-
-    public UE assignerUE(Diplome dip, UE ue, int nbAnneeDip){
-        //On ajoute l'UE dans la bonne année du diplome
-        ArrayList<UE> listeAInserer = dip.UEHashMap.get(nbAnneeDip);
-
-        //On ajoute l'UE dans la bonne année du diplome
-        listeAInserer.add(ue);
-
-        System.out.println("UE " + ue + " ajoutée à l'année " + nbAnneeDip + " du diplôme " + dip.nomDiplome );
-        return ue;
+    public Enseignant getEnseignant(String nom) {
+        return enseignantsByNom.get(nom);
     }
 
-    public Diplome getDiplome(String nomDiplome) {
-        return diplomeHashMap.get(nomDiplome);
+    // ES-08 (commande ASSIGN -> doit passer par Noodle)
+    public void assignerEnseignant(String nomUE, String nomEnseignant, int nbHeures) {
+        if (nomUE == null || nomUE.isBlank()) {
+            throw new IllegalArgumentException("Nom UE vide");
+        }
+        if (nomEnseignant == null || nomEnseignant.isBlank()) {
+            throw new IllegalArgumentException("Nom enseignant vide");
+        }
+        if (nbHeures <= 0) {
+            throw new IllegalArgumentException("Nombre d'heures invalide");
+        }
+
+        Enseignant e = enseignantsByNom.get(nomEnseignant);
+        if (e == null) {
+            throw new IllegalArgumentException("Enseignant inconnu : " + nomEnseignant);
+        }
+
+        UE ue = trouverUEUnique(nomUE); // lève une exception si introuvable / ambigu
+
+        ue.affecterEnseignant(nomEnseignant, nbHeures);
+
+        e.ajouterAffectation(nomUE, nbHeures);
     }
 
-    public int getTotal(String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Nom vide");
-        }
-
-        // 1) ALL : total de tous les diplômes
-        if (name.equalsIgnoreCase("ALL")) {
-            int total = 0;
-            for (Diplome d : diplomeHashMap.values()) {
-                total += totalHeuresDiplome(d);
-            }
-            return total;
-        }
-
-        // 2) Diplôme : si le nom correspond à un diplôme
-        Diplome d = diplomeHashMap.get(name);
-        if (d != null) {
-            return totalHeuresDiplome(d);
-        }
-
-        // 3) UE : si le nom correspond à une UE (unique)
-        UE ue = findUEByName(name);
-        if (ue != null) {
-            return ue.cm + ue.td + ue.tp;
-        }
-
-        // 4) Enseignant : total des heures affectées (sur toutes les UE)
-        // (fonctionne déjà avec ton HashMap heuresParEnseignant dans UE)
-        if (enseignantsByNom.containsKey(name)) {
-            return totalHeuresEnseignant(name);
-        }
-
-        // Si tu veux accepter aussi "Dupont" même non enregistré, remplace le test ci-dessus par:
-        // return totalHeuresEnseignant(name); avec erreur si total == 0.
-
-        throw new IllegalArgumentException("Aucun diplôme, UE ou enseignant ne correspond à: " + name);
-    }
-
-    private int totalHeuresDiplome(Diplome d) {
-        int total = 0;
-        for (UE ue : d.UEList) {
-            total += ue.cm + ue.td + ue.tp;
-        }
-        return total;
-    }
-
-    private UE findUEByName(String nomUE) {
-        for (Diplome d : diplomeHashMap.values()) {
-            for (UE ue : d.UEList) {
-                if (ue.nomUE.equals(nomUE)) {
-                    return ue;
-                }
-            }
-        }
-        return null;
-    }
-
-    private int totalHeuresEnseignant(String nomEnseignant) {
-        int total = 0;
-        for (Diplome d : diplomeHashMap.values()) {
-            for (UE ue : d.UEList) {
-                Integer h = ue.heuresParEnseignant.get(nomEnseignant);
-                if (h != null) total += h;
-            }
-        }
-        return total;
-    }
-
-    public TotalTargetType getTotalTargetType(String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Nom vide");
-        }
-
-        if (name.equalsIgnoreCase("ALL")) return TotalTargetType.ALL;
-
-        if (diplomeHashMap.containsKey(name)) return TotalTargetType.DIPLOME;
-
-        if (enseignantsByNom.containsKey(name)) return TotalTargetType.ENSEIGNANT;
-
-        // sinon, on essaie UE
-        UE ue = findUEByName(name);
-        if (ue != null) return TotalTargetType.UE;
-
-        throw new IllegalArgumentException("Aucun diplôme, UE ou enseignant ne correspond à: " + name);
-    }
+    // =========================
+    // Recherche UE (sans diplome) - utile pour ASSIGN
+    // =========================
 
     public UE trouverUEUnique(String nomUE) {
         UE found = null;
@@ -227,7 +131,7 @@ public class Noodle {
                 if (ue.nomUE.equals(nomUE)) {
                     if (found != null) {
                         throw new IllegalArgumentException(
-                                "UE ambiguë: '" + nomUE + "' existe dans plusieurs diplômes"
+                                "UE ambigue: '" + nomUE + "' existe dans plusieurs diplomes"
                         );
                     }
                     found = ue;
@@ -242,24 +146,521 @@ public class Noodle {
         return found;
     }
 
+    // =========================
+    // GET TOTAL
+    // =========================
+
+    public TotalTargetType getTotalTargetType(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Nom vide");
+        }
+
+        if (name.equalsIgnoreCase("ALL")) return TotalTargetType.ALL;
+        if (diplomeHashMap.containsKey(name)) return TotalTargetType.DIPLOME;
+        if (enseignantsByNom.containsKey(name)) return TotalTargetType.ENSEIGNANT;
+
+        // Tentative: UE unique
+        try {
+            trouverUEUnique(name);
+            return TotalTargetType.UE;
+        } catch (Exception ignored) {
+            // ignored
+        }
+
+        throw new IllegalArgumentException(
+                "Aucun diplome, UE ou enseignant ne correspond a: " + name
+        );
+    }
+
+    public int getTotal(String name) {
+        TotalTargetType type = getTotalTargetType(name);
+
+        switch (type) {
+            case ALL:
+                int totalAll = 0;
+                for (Diplome d : diplomeHashMap.values()) {
+                    totalAll += totalHeuresDiplome(d);
+                }
+                return totalAll;
+
+            case DIPLOME:
+                return totalHeuresDiplome(diplomeHashMap.get(name));
+
+            case UE:
+                UE ue = trouverUEUnique(name);
+                return ue.cm + ue.td + ue.tp;
+
+            case ENSEIGNANT:
+                // Ajustement ITE-3: on prend la source de verite cote Enseignant
+                return enseignantsByNom.get(name).getTotalHeures();
+
+            default:
+                throw new IllegalStateException("Type non gere");
+        }
+    }
+
+    private int totalHeuresDiplome(Diplome d) {
+        int total = 0;
+        for (UE ue : d.UEList) {
+            total += ue.cm + ue.td + ue.tp;
+        }
+        return total;
+    }
+
+
+    public void assignerUEMutualisee(String ueName, String diplomeName, int year) {
+        Diplome d = diplomeHashMap.get(diplomeName);
+        if (d == null) throw new IllegalArgumentException("Diplome inconnu: " + diplomeName);
+
+        UE ue = trouverUEParNomGlobal(ueName);
+        if (ue == null) throw new IllegalArgumentException("UE introuvable: " + ueName);
+
+        d.lierUEExistante(ue, year);
+    }
+
+    private UE trouverUEParNomGlobal(String nomUE) {
+        UE found = null;
+        for (Diplome d : diplomeHashMap.values()) {
+            for (UE ue : d.UEList) {
+                if (ue.nomUE.equals(nomUE)) {
+                    if (found == null) found = ue;
+                    else if (found != ue) {
+                        // deux instances différentes avec le même nom => ambigu
+                        throw new IllegalArgumentException("UE ambigue: '" + nomUE + "' existe sous plusieurs formes");
+                    }
+                }
+            }
+        }
+        return found;
+    }
+
+    public int getCover(String name) {
+
+
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Nom vide");
+
+        if (name.equalsIgnoreCase("ALL")) {
+            return coverAll();
+        }
+
+        // Diplôme ?
+        Diplome d = diplomeHashMap.get(name);
+        if (d != null) {
+            return coverDiplome(d);
+        }
+
+        // UE ?
+        UE ue = trouverUEParNomGlobal(name); // ou trouverUEUnique si tu gères bien la mutualisation
+        if (ue != null) {
+            return ue.getCover();
+        }
+
+        throw new IllegalArgumentException("Cible inconnue pour GET COVER: " + name);
+    }
+
+    private int coverDiplome(Diplome d) {
+        int assigned = 0;
+        int total = 0;
+
+        for (UE ue : d.UEList) {
+            assigned += ue.getHeuresAffectees();
+            total += ue.getTotalHeures();
+        }
+        return percentRounded(assigned, total);
+    }
+
+    private int coverAll() {
+        // Pour éviter de compter 2 fois une UE mutualisée, on déduplique par instance
+        HashSet<UE> uniqueUEs = new HashSet<>();
+        for (Diplome d : diplomeHashMap.values()) {
+            uniqueUEs.addAll(d.UEList);
+        }
+
+        int assigned = 0;
+        int total = 0;
+        for (UE ue : uniqueUEs) {
+            assigned += ue.getHeuresAffectees();
+            total += ue.getTotalHeures();
+        }
+        return percentRounded(assigned, total);
+    }
+
+    private int percentRounded(int assigned, int total) {
+        if (total <= 0) return 0;
+        double p = (assigned * 100.0) / total;
+        return (int) Math.round(p);
+    }
+
+    // =========================
+    // GET SEANCE (ITE-4)
+    // =========================
+
+    /**
+     * ITE-4 - Calcul du nombre de seances (1 seance = 2h), arrondi a l'entier superieur.
+     * <name> peut etre ALL, un nom de diplome, ou un nom d'UE.
+     */
+
+    private int ceilDiv2(int heures) {
+        if (heures <= 0) return 0;
+        return (int) Math.ceil(heures / 2.0);
+    }
+
+    public int getSeance(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Nom vide");
+        }
+
+        // ALL (offre complete) : on evite le double-compte des UE mutualisees (meme instance)
+        if (name.equalsIgnoreCase("ALL")) {
+            int heures = totalHeuresOffreSansDoubleCompte();
+            return ceilDiv2(heures);
+        }
+
+        // Diplome
+        Diplome d = diplomeHashMap.get(name);
+        if (d != null) {
+            int heures = totalHeuresDiplome(d);
+            return ceilDiv2(heures);
+        }
+
+        // UE (recherche globale compatible mutualisation)
+        UE ue = trouverUEParNomGlobal(name);
+        if (ue != null) {
+            int heures = ue.cm + ue.td + ue.tp;
+            return ceilDiv2(heures);
+        }
+
+        throw new IllegalArgumentException("Cible inconnue pour GET SEANCE: " + name);
+    }
+
+    /**
+     * ceil(h/2) en entier (1 seance = 2h).
+     * Ex: 30 -> 15 ; 31 -> 16 ; 0 -> 0
+     */
+
+
+    /**
+     * Total d'heures de l'offre (ALL), sans double-compter les UE mutualisees.
+     */
+    private int totalHeuresOffreSansDoubleCompte() {
+        HashSet<UE> uniques = new HashSet<>();
+        for (Diplome d : diplomeHashMap.values()) {
+            uniques.addAll(d.UEList);
+        }
+
+        int total = 0;
+        for (UE ue : uniques) {
+            total += ue.cm + ue.td + ue.tp;
+        }
+        return total;
+    }
 
 
 
+    // =========================
+    // ITE-5 - DISPLAY GRAPH (format sujet)
+    // =========================
+    public void displayGraphDiplome(Diplome dip) {
+        if (dip == null) {
+            throw new IllegalArgumentException("Diplome null");
+        }
 
+        // Ligne racine
+        System.out.println(dip.nomDiplome + " (" + dip.type + ")");
 
-    // public int calculerVolumetrieHeures(){
-    // Il faut accèder au à la liste d'UE de chaque diplome de la formation,
-    // puis accéder à la HashMap d'enseignant de l'UE pour faire la somme des heures,
-    // ou alors dans UE on fait un compteur du nombre d'heures (surement plus simple)
-      //  diplomeHashMap.forEach((nomDiplome, d) -> d.UEList.get()));eee
-  //  }
+        // Années 1..n
+        for (int year = 1; year <= dip.annee; year++) {
+            System.out.println("  Annee " + year);
 
+            ArrayList<UE> ues = dip.UEHashMap.get(year);
+            if (ues == null || ues.isEmpty()) {
+                System.out.println("    (Aucune UE)");
+                continue;
+            }
 
+            for (UE ue : ues) {
+                System.out.println("    " + ue.nomUE + " (" + ue.ects + " ECTS) "
+                        + ue.cm + " CM " + ue.td + " TD " + ue.tp + " TP");
 
+                int cover = ue.getCover();
+                System.out.println("    Enseignants (couverte a " + cover + "%) :");
 
+                HashMap<String, Integer> map = ue.getHeuresParEnseignant();
+                if (map == null || map.isEmpty()) {
+                    System.out.println("      (Aucun enseignant)");
+                } else {
+                    ArrayList<String> noms = new ArrayList<>(map.keySet());
+                    noms.sort(String::compareToIgnoreCase);
 
+                    for (String nomEns : noms) {
+                        int h = map.getOrDefault(nomEns, 0);
+                        System.out.println("      " + nomEns + " (" + h + "h)");
+                    }
+                }
+            }
+        }
+    }
 
+    // =========================
+    // ITE-5 - TRACE GRAPH (Graphviz DOT -> PNG)
+    // =========================
+    public void traceGraph(String diplomeName, String fileName) {
+        if (diplomeName == null || diplomeName.isBlank()) {
+            throw new IllegalArgumentException("Nom diplome vide");
+        }
+        if (fileName == null || fileName.isBlank()) {
+            throw new IllegalArgumentException("Nom de fichier vide");
+        }
 
+        Diplome dip = diplomeHashMap.get(diplomeName);
+        if (dip == null) {
+            throw new IllegalArgumentException("Diplome inconnu: " + diplomeName);
+        }
 
+        if (!fileName.toLowerCase().endsWith(".png")) {
+            fileName = fileName + ".png";
+        }
 
+        String dot = toDot(dip);
+        String dotFile = diplomeName + ".dot";
+
+        writeTextFile(dotFile, dot);
+        runDot(dotFile, fileName);
+    }
+
+    private String toDot(Diplome dip) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("digraph G {\n");
+
+        // ---------- Graph (global) ----------
+        sb.append("  graph [\n");
+        sb.append("    rankdir=TB,\n");
+        sb.append("    splines=polyline,\n");
+        sb.append("    compound=true,\n"); // IMPORTANT pour lhead/ltail (clusters)
+        sb.append("    nodesep=0.45,\n");
+        sb.append("    ranksep=0.85,\n");
+        sb.append("    pad=0.25,\n");
+        sb.append("    bgcolor=\"white\",\n");
+        sb.append("    fontname=\"Helvetica\"\n");
+        sb.append("  ];\n");
+
+        // ---------- Edges (global) ----------
+        sb.append("  edge [\n");
+        sb.append("    color=\"#64748B\",\n");
+        sb.append("    penwidth=1.2,\n");
+        sb.append("    arrowsize=0.8\n");
+        sb.append("  ];\n");
+
+        // ---------- Nodes (global) ----------
+        sb.append("  node [\n");
+        sb.append("    fontname=\"Helvetica\",\n");
+        sb.append("    fontsize=11,\n");
+        sb.append("    shape=box,\n");
+        sb.append("    style=\"rounded,filled\",\n");
+        sb.append("    color=\"#CBD5E1\",\n");
+        sb.append("    penwidth=1.2,\n");
+        sb.append("    fillcolor=\"#F8FAFC\"\n");
+        sb.append("  ];\n\n");
+
+        // ---------- Diplôme ----------
+        String dipId = "DIP_" + safeId(dip.nomDiplome);
+
+        sb.append("  ").append(dipId).append(" [");
+        sb.append("shape=box, style=\"rounded,filled\", penwidth=1.6, ");
+        sb.append("color=\"#0F172A\", fillcolor=\"#E0F2FE\", ");
+        sb.append("label=<\n");
+        sb.append("    <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"8\">\n");
+        sb.append("      <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"16\">")
+                .append(escapeHtml(dip.nomDiplome))
+                .append("</FONT></B></TD></TR>\n");
+        sb.append("      <TR><TD ALIGN=\"CENTER\"><FONT POINT-SIZE=\"11\" COLOR=\"#0F172A\">")
+                .append(escapeHtml(String.valueOf(dip.type)))
+                .append("</FONT></TD></TR>\n");
+        sb.append("    </TABLE>\n");
+        sb.append("  >];\n\n");
+
+        // Forcer le diplôme seul en haut
+        sb.append("  { rank=source; ").append(dipId).append("; }\n\n");
+
+        // ---------- Years: ONE container per year (cluster has title + contains UEs) ----------
+        for (int year = 1; year <= dip.annee; year++) {
+            String clusterId = "cluster_" + dipId + "_Y" + year;
+
+            sb.append("  subgraph ").append(clusterId).append(" {\n");
+            sb.append("    label=\"Année ").append(year).append("\";\n");
+            sb.append("    labelloc=t;\n");
+            sb.append("    labeljust=l;\n");
+            sb.append("    fontsize=13;\n");
+            sb.append("    fontname=\"Helvetica\";\n");
+
+            sb.append("    style=\"rounded\";\n");
+            sb.append("    color=\"#CBD5E1\";\n");
+            sb.append("    bgcolor=\"#F8FAFC\";\n");
+            sb.append("    penwidth=1.2;\n\n");
+
+            // Port en haut du conteneur : la flèche vise ce point (et s'arrête au bord du cluster)
+            String portId = dipId + "_Y" + year + "_PORT";
+            sb.append("    ").append(portId).append(" [shape=point, width=0.01, label=\"\", style=invis];\n");
+            sb.append("    { rank=min; ").append(portId).append("; }\n\n");
+
+            ArrayList<UE> ues = dip.UEHashMap.get(year);
+            if (ues != null) {
+                ues.sort((a, b) -> a.nomUE.compareToIgnoreCase(b.nomUE));
+            }
+
+            ArrayList<String> contentIds = new ArrayList<>();
+
+            if (ues != null && !ues.isEmpty()) {
+                for (UE ue : ues) {
+                    String ueId = dipId + "_Y" + year + "_UE_" + safeId(ue.nomUE);
+                    contentIds.add(ueId);
+
+                    int cover = ue.getCover();
+                    String ueFill = coverFillColor(cover);
+                    String ueBorder = coverBorderColor(cover);
+
+                    String ueLabelHtml =
+                            "<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"6\">" +
+                                    "<TR><TD ALIGN=\"LEFT\"><B><FONT POINT-SIZE=\"13\">" + escapeHtml(ue.nomUE) + "</FONT></B></TD></TR>" +
+                                    "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"10\" COLOR=\"#334155\">" + ue.ects + " ECTS</FONT></TD></TR>" +
+                                    "<TR><TD ALIGN=\"LEFT\"><FONT POINT-SIZE=\"10\" COLOR=\"#334155\">" +
+                                    ue.cm + " CM  •  " + ue.td + " TD  •  " + ue.tp + " TP" +
+                                    "</FONT></TD></TR>" +
+                                    "</TABLE>";
+
+                    sb.append("    ").append(ueId).append(" [");
+                    sb.append("shape=box, style=\"rounded,filled\", penwidth=1.4, ");
+                    sb.append("color=\"").append(ueBorder).append("\", ");
+                    sb.append("fillcolor=\"").append(ueFill).append("\", ");
+                    sb.append("label=<").append(ueLabelHtml).append(">");
+                    sb.append("];\n");
+                }
+            } else {
+                String emptyId = dipId + "_Y" + year + "_EMPTY";
+                contentIds.add(emptyId);
+
+                sb.append("    ").append(emptyId).append(" [");
+                sb.append("shape=box, style=\"rounded,filled\", penwidth=1.0, ");
+                sb.append("color=\"#CBD5E1\", fillcolor=\"#FFFFFF\", ");
+                sb.append("fontcolor=\"#64748B\", label=\"(Aucune UE)\"");
+                sb.append("];\n");
+            }
+
+            // Placement interne : empilement vertical, SANS flèches visibles
+            if (!contentIds.isEmpty()) {
+                sb.append("\n");
+                sb.append("    ").append(portId).append(" -> ").append(contentIds.get(0))
+                        .append(" [style=invis, weight=50, minlen=1];\n");
+                for (int i = 0; i < contentIds.size() - 1; i++) {
+                    sb.append("    ").append(contentIds.get(i)).append(" -> ").append(contentIds.get(i + 1))
+                            .append(" [style=invis, weight=40, minlen=1];\n");
+                }
+            }
+
+            sb.append("  }\n\n");
+
+            // Flèche visible : diplôme -> port (avec lhead pour que la flèche "touche" le conteneur)
+            sb.append("  ").append(dipId).append(" -> ").append(portId)
+                    .append(" [weight=30, minlen=2, lhead=").append(clusterId).append("];\n\n");
+        }
+
+        // ---------- Légende ----------
+        sb.append("  subgraph cluster_legend {\n");
+        sb.append("    label=\"Légende\";\n");
+        sb.append("    labelloc=t;\n");
+        sb.append("    labeljust=l;\n");
+        sb.append("    fontsize=12;\n");
+        sb.append("    style=\"rounded\";\n");
+        sb.append("    color=\"#CBD5E1\";\n");
+        sb.append("    bgcolor=\"#FFFFFF\";\n");
+        sb.append("    penwidth=1.0;\n");
+        sb.append("    Legend1 [shape=box, style=\"rounded,filled\", color=\"#DC2626\", fillcolor=\"#FEE2E2\", label=\"UE : couverture < 50%\"];\n");
+        sb.append("    Legend2 [shape=box, style=\"rounded,filled\", color=\"#D97706\", fillcolor=\"#FEF3C7\", label=\"UE : 50% à 79%\"];\n");
+        sb.append("    Legend3 [shape=box, style=\"rounded,filled\", color=\"#16A34A\", fillcolor=\"#DCFCE7\", label=\"UE : >= 80%\"];\n");
+        sb.append("  }\n");
+
+        sb.append("}\n");
+        return sb.toString();
+    }
+
+    // ---------- Couleurs couverture ----------
+    private String coverFillColor(int cover) {
+        if (cover < 50) return "#FEE2E2";
+        if (cover < 80) return "#FEF3C7";
+        return "#DCFCE7";
+    }
+
+    private String coverBorderColor(int cover) {
+        if (cover < 50) return "#DC2626";
+        if (cover < 80) return "#D97706";
+        return "#16A34A";
+    }
+
+    // ---------- HTML escaping (DOT labels) ----------
+    private String escapeHtml(String s) {
+        if (s == null) return "";
+        return s.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;");
+    }
+
+    // ---------- Barre de progression (non utilisée dans le label UE actuel, mais conservée si besoin) ----------
+    private String coverBarHtml(int cover) {
+        int w = 120;
+        int filled = (int) Math.round(w * (cover / 100.0));
+        int empty = w - filled;
+
+        String fill = coverBorderColor(cover);
+
+        return "<TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLPADDING=\"0\" CELLSPACING=\"0\">" +
+                "<TR>" +
+                "<TD WIDTH=\"" + filled + "\" HEIGHT=\"10\" BGCOLOR=\"" + fill + "\"></TD>" +
+                "<TD WIDTH=\"" + empty + "\" HEIGHT=\"10\" BGCOLOR=\"#E2E8F0\"></TD>" +
+                "</TR>" +
+                "</TABLE>";
+    }
+
+    // ---------- Exécution Graphviz ----------
+    private void runDot(String dotFile, String pngFile) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", dotFile, "-o", pngFile);
+            pb.redirectErrorStream(true);
+            Process p = pb.start();
+
+            String output = new String(p.getInputStream().readAllBytes());
+            int code = p.waitFor();
+
+            if (code != 0) {
+                throw new IllegalStateException("Graphviz dot a echoue (code " + code + "): " + output);
+            }
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("Impossible d'executer 'dot' (Graphviz). Est-il installe ?", e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Execution de dot interrompue", e);
+        }
+    }
+
+    // ---------- I/O fichiers ----------
+    private void writeTextFile(String path, String content) {
+        try (java.io.FileWriter fw = new java.io.FileWriter(path)) {
+            fw.write(content);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("Erreur ecriture fichier: " + path, e);
+        }
+    }
+
+    // ---------- IDs DOT ----------
+    private String safeId(String s) {
+        return s.replaceAll("[^a-zA-Z0-9_]", "_");
+    }
+
+    // (Optionnel) utile seulement si tu as encore des label="..."
+    private String escape(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "\\\\").replace("\"", "\\\"");
+    }
 }
+

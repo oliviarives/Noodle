@@ -1,0 +1,37 @@
+# ---------- Diplôme ----------
+CREATE DEGREE LicenceProInfo LICENCE 3 200 180
+SELECT DEGREE LicenceProInfo
+
+# ---------- Année 1 ----------
+SELECT YEAR 1
+CREATE UE GestionProjet 6 8 10 0
+CREATE UE Python 15 10 10 10
+CREATE UE UML 6 10 10 0
+
+# ---------- Année 2 ----------
+SELECT YEAR 2
+CREATE UE Cloud 6 6 6 0
+CREATE UE DevWeb 8 6 6 10
+CREATE UE JavaAvance 10 10 10 0
+
+# ---------- Année 3 (vide pour montrer le placeholder) ----------
+SELECT YEAR 3
+
+# ---------- Enseignants ----------
+CREATE TEACHER Dupont Jean
+CREATE TEACHER Durand Alice
+CREATE TEACHER Martin Hugo
+
+# ---------- Affectations ----------
+ASSIGN Python Dupont 10
+ASSIGN Python Durand 5
+ASSIGN UML Martin 8
+ASSIGN DevWeb Durand 12
+ASSIGN JavaAvance Dupont 15
+
+# ---------- Sorties ----------
+DISPLAY GRAPH LicenceProInfo
+TRACE GRAPH LicenceProInfo licenceproinfo_demo.png
+
+# Optionnel (si tu as plusieurs diplômes) :
+# TRACE GRAPH ALL offre_complete.png

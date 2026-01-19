@@ -10,14 +10,14 @@ public class Main {
         try {
             if (Files.exists(Path.of(savePath))) {
                 noodle = JsonStorage.load(savePath);
-                System.out.println("Sauvegarde chargée: " + savePath);
+                System.out.println("Sauvegarde chargee: " + savePath);
             } else {
                 noodle = new Noodle();
-                System.out.println("Aucune sauvegarde trouvée, nouvelle instance.");
+                System.out.println("Aucune sauvegarde trouvee, nouvelle instance.");
             }
         } catch (Exception e) {
             noodle = new Noodle();
-            System.out.println("Erreur chargement JSON, nouvelle instance. Détail: " + e.getMessage());
+            System.out.println("Erreur chargement JSON, nouvelle instance. Detail: " + e.getMessage());
         }
 
         new ConsoleApp(noodle, savePath).run();

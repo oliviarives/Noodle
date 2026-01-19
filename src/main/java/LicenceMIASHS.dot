@@ -1,0 +1,112 @@
+digraph G {
+  graph [
+    rankdir=TB,
+    splines=polyline,
+    compound=true,
+    nodesep=0.45,
+    ranksep=0.85,
+    pad=0.25,
+    bgcolor="white",
+    fontname="Helvetica"
+  ];
+  edge [
+    color="#64748B",
+    penwidth=1.2,
+    arrowsize=0.8
+  ];
+  node [
+    fontname="Helvetica",
+    fontsize=11,
+    shape=box,
+    style="rounded,filled",
+    color="#CBD5E1",
+    penwidth=1.2,
+    fillcolor="#F8FAFC"
+  ];
+
+  DIP_LicenceMIASHS [shape=box, style="rounded,filled", penwidth=1.6, color="#0F172A", fillcolor="#E0F2FE", label=<
+    <TABLE BORDER="0" CELLBORDER="0" CELLPADDING="8">
+      <TR><TD ALIGN="CENTER"><B><FONT POINT-SIZE="16">LicenceMIASHS</FONT></B></TD></TR>
+      <TR><TD ALIGN="CENTER"><FONT POINT-SIZE="11" COLOR="#0F172A">LICENCE</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  { rank=source; DIP_LicenceMIASHS; }
+
+  subgraph cluster_DIP_LicenceMIASHS_Y1 {
+    label="Année 1";
+    labelloc=t;
+    labeljust=l;
+    fontsize=13;
+    fontname="Helvetica";
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#F8FAFC";
+    penwidth=1.2;
+
+    DIP_LicenceMIASHS_Y1_PORT [shape=point, width=0.01, label="", style=invis];
+    { rank=min; DIP_LicenceMIASHS_Y1_PORT; }
+
+    DIP_LicenceMIASHS_Y1_UE_ConceptionSI [shape=box, style="rounded,filled", penwidth=1.4, color="#DC2626", fillcolor="#FEE2E2", label=<<TABLE BORDER="0" CELLBORDER="0" CELLPADDING="6"><TR><TD ALIGN="LEFT"><B><FONT POINT-SIZE="13">ConceptionSI</FONT></B></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">6 ECTS</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10" COLOR="#334155">12 CM  •  10 TD  •  10 TP</FONT></TD></TR></TABLE>>];
+
+    DIP_LicenceMIASHS_Y1_PORT -> DIP_LicenceMIASHS_Y1_UE_ConceptionSI [style=invis, weight=50, minlen=1];
+  }
+
+  DIP_LicenceMIASHS -> DIP_LicenceMIASHS_Y1_PORT [weight=30, minlen=2, lhead=cluster_DIP_LicenceMIASHS_Y1];
+
+  subgraph cluster_DIP_LicenceMIASHS_Y2 {
+    label="Année 2";
+    labelloc=t;
+    labeljust=l;
+    fontsize=13;
+    fontname="Helvetica";
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#F8FAFC";
+    penwidth=1.2;
+
+    DIP_LicenceMIASHS_Y2_PORT [shape=point, width=0.01, label="", style=invis];
+    { rank=min; DIP_LicenceMIASHS_Y2_PORT; }
+
+    DIP_LicenceMIASHS_Y2_EMPTY [shape=box, style="rounded,filled", penwidth=1.0, color="#CBD5E1", fillcolor="#FFFFFF", fontcolor="#64748B", label="(Aucune UE)"];
+
+    DIP_LicenceMIASHS_Y2_PORT -> DIP_LicenceMIASHS_Y2_EMPTY [style=invis, weight=50, minlen=1];
+  }
+
+  DIP_LicenceMIASHS -> DIP_LicenceMIASHS_Y2_PORT [weight=30, minlen=2, lhead=cluster_DIP_LicenceMIASHS_Y2];
+
+  subgraph cluster_DIP_LicenceMIASHS_Y3 {
+    label="Année 3";
+    labelloc=t;
+    labeljust=l;
+    fontsize=13;
+    fontname="Helvetica";
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#F8FAFC";
+    penwidth=1.2;
+
+    DIP_LicenceMIASHS_Y3_PORT [shape=point, width=0.01, label="", style=invis];
+    { rank=min; DIP_LicenceMIASHS_Y3_PORT; }
+
+    DIP_LicenceMIASHS_Y3_EMPTY [shape=box, style="rounded,filled", penwidth=1.0, color="#CBD5E1", fillcolor="#FFFFFF", fontcolor="#64748B", label="(Aucune UE)"];
+
+    DIP_LicenceMIASHS_Y3_PORT -> DIP_LicenceMIASHS_Y3_EMPTY [style=invis, weight=50, minlen=1];
+  }
+
+  DIP_LicenceMIASHS -> DIP_LicenceMIASHS_Y3_PORT [weight=30, minlen=2, lhead=cluster_DIP_LicenceMIASHS_Y3];
+
+  subgraph cluster_legend {
+    label="Légende";
+    labelloc=t;
+    labeljust=l;
+    fontsize=12;
+    style="rounded";
+    color="#CBD5E1";
+    bgcolor="#FFFFFF";
+    penwidth=1.0;
+    Legend1 [shape=box, style="rounded,filled", color="#DC2626", fillcolor="#FEE2E2", label="UE : couverture < 50%"];
+    Legend2 [shape=box, style="rounded,filled", color="#D97706", fillcolor="#FEF3C7", label="UE : 50% à 79%"];
+    Legend3 [shape=box, style="rounded,filled", color="#16A34A", fillcolor="#DCFCE7", label="UE : >= 80%"];
+  }
+}
