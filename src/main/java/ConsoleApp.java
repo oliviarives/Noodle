@@ -175,7 +175,7 @@ public class ConsoleApp {
         int ects = Integer.parseInt(args[4]);
 
         noodle.creerDiplome(nom, type, annee, maxEtu, ects);
-        System.out.println("Diplome cree: " + nom);
+        //System.out.println("Diplome cree: " + nom);
     }
 
     private void handleSelectDegree(String[] args) {
