@@ -310,7 +310,7 @@ public class Noodle implements Serializable {
             throw new IllegalArgumentException("Nom vide");
         }
 
-        // ALL (offre complete) : on evite le double-compte des UE mutualisees (meme instance)
+        //Offre de  globale de formation
         if (name.equalsIgnoreCase("ALL")) {
             int heures = totalHeuresOffreSansDoubleCompte();
             return ceilDiv2(heures);
@@ -950,7 +950,6 @@ public class Noodle implements Serializable {
         return s.replaceAll("[^a-zA-Z0-9_]", "_");
     }
 
-    // Optionnel
     private String escape(String s) {
         if (s == null) return "";
         return s.replace("\\", "\\\\").replace("\"", "\\\"");
