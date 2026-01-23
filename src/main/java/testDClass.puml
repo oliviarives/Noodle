@@ -1,0 +1,137 @@
+@startuml
+
+' --- Configuration du style ---
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 50
+
+' --- Package Application / Console ---
+
+package "Application Layer" {
+
+    class ConsoleApp {
+        - noodle : Noodle
+        - savePath : String
+        - sc : Scanner
+        - selectedDiplome : Diplome
+        - selectedYear : int
+        + ConsoleApp(noodle: Noodle, savePath: String)
+        + run() : void
+        - prompt() : String
+        - dispatch(cmd: Commande, args: String[]) : boolean
+        - printHelp() : void
+        - handleCreateDegree(args: String[]) : void
+        - handleSelectDegree(args: String[]) : void
+        - handleSelectYear(args: String[]) : void
+        - handleCreateUE(args: String[]) : void
+        - handleDisplayGraph(args: String[]) : void
+        - requireSelectedDegree() : void
+    }
+
+    enum Commande {
+        CREATE_DEGREE
+        SELECT_DEGREE
+        SELECT_YEAR
+        CREATE_UE
+        DISPLAY_GRAPH
+        LIST_DEGREES
+        HELP
+        EXIT
+        - label : String
+        - Commande(label: String)
+        + {static} fromInput(input: String) : Commande
+        + getArguments(input: String) : String
+        + getLabel() : String
+    }
+
+    class JsonStorage {
+        - {static} mapper : ObjectMapper
+        + {static} save(path: String, noodle: Noodle) : void
+        + {static} load(path: String) : Noodle
+    }
+}
+
+' --- Package Modèle (Métier) ---
+
+package "Model Layer" {
+
+    class Noodle {
+        ~ diplomeHashMap : HashMap<String, Diplome>
+        ~ enseignantsByNom : HashMap<String, Enseignant>
+        + Noodle()
+        + getDiplomeHashMap() : HashMap<String, Diplome>
+        + afficherDiplomes() : void
+        + creerDiplome(nom: String, type: TypeDiplome, annee: int, maxEtu: int, ects: int) : Diplome
+        + getDiplome(nom: String) : Diplome
+        + consulterDiplome(dip: Diplome) : void
+        + consulterAnneeDiplome(dip: Diplome, annee: int) : void
+        + enregistrerEnseignant(nom: String, prenom: String) : Enseignant
+        + ajouterEnseigantUE(ue: UE, enseignant: Enseignant, nbHeures: int) : Enseignant
+    }
+
+    class Diplome {
+        ~ nomDiplome : String
+        ~ annee : int
+        ~ maxEtu : int
+        ~ ects : int
+        ~ UEList : ArrayList<UE>
+        ~ UEHashMap : HashMap<Integer, ArrayList<UE>>
+        + Diplome(nom: String, type: TypeDiplome, annee: int, maxEtu: int, ects: int)
+        + creerUE(nomUE: String, ects: int, cm: int, td: int, tp: int, nbAnneeDip: int) : UE
+        + getType() : TypeDiplome
+        + getAnnee() : int
+    }
+
+    enum TypeDiplome {
+        LICENCEPRO
+        LICENCE
+        BUT
+        MASTER
+    }
+
+    class UE {
+        ~ nomUE : String
+        ~ ects : int
+        ~ cm : int
+        ~ td : int
+        ~ tp : int
+        ~ heuresParEnseignant : HashMap<String, Integer>
+        + UE(nomUE: String, ects: int, cm: int, td: int, tp: int)
+        + getHeuresParEnseignant() : HashMap<String, Integer>
+        + toString() : String
+    }
+
+    class Enseignant {
+        ~ name : String
+        ~ firstName : String
+        + Enseignant(name: String, firstName: String)
+        + toString() : String
+    }
+}
+
+' --- Relations ---
+
+' ConsoleApp utilise Noodle et Commande
+ConsoleApp "1" o-- "1" Noodle : manipule >
+ConsoleApp ..> Commande : utilise
+ConsoleApp ..> JsonStorage : utilise pour save/load
+ConsoleApp --> "0..1" Diplome : sélectionne >
+
+' JsonStorage persiste Noodle
+JsonStorage ..> Noodle : sérialise/désérialise
+
+' Noodle contient les données
+Noodle "1" *-- "*" Diplome : contient >
+Noodle "1" o-- "*" Enseignant : registre global >
+
+' Diplome structure
+Diplome "1" *-- "*" UE : contient >
+Diplome --> "1" TypeDiplome : type
+
+' Relation UE - Enseignant
+' Note : Dans le code UE, c'est une Map<String, Integer>, donc pas de lien fort objet.
+' On met une dépendance faible ou une note.
+UE ..> Enseignant : référence par nom (String)
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+ConsoleApp ..> Commande
+ConsoleApp ..> TypeVolumetrie
+ConsoleApp "1" o-- "1" Noodle
+ConsoleApp ..> JsonStorage
+JsonStorage ..> Noodle
+ConsoleApp --> "0..1"Diplome
+Noodle "1" *-- "*" Diplome
+Diplome "1" *-- "*" UE
+UE "*" --> "*" Enseignant
+Diplome --> "1" TypeDiplome
+
+class Noodle {
+}
+
+class Diplome {
+}
+
+class ConsoleApp {
+}
+
+class UE {
+}
+
+class Enseignant {
+}
+
+enum TypeDiplome {
+LICENCEPRO
+LICENCE
+BUT
+MASTER
+}
+
+enum Commande {
+CREATE_DEGREE
+SELECT_DEGREE
+SELECT_YEAR
+CREATE_UE
+DISPLAY_GRAPH
+LIST_DEGREES
+HELP
+EXIT
+}
+
+enum TypeVolumetrie{
+ALL
+DIPLOME
+UE
+}
+
+@enduml
