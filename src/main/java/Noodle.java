@@ -449,7 +449,7 @@ public class Noodle implements Serializable {
         if (!fileName.toLowerCase().endsWith(".png")) {
             fileName = fileName + ".png";
         }
-
+//
         String dot = toDot(dip);
         String dotFile = diplomeName + ".dot";
 
