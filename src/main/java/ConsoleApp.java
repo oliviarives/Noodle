@@ -18,7 +18,7 @@ public class ConsoleApp {
     }
 
     public void run() {
-        System.out.println("Tape HELP pour la liste des commandes.");
+        System.out.println("HELP permet d'afficher la liste des commandes dispo");
 
         while (true) {
             System.out.print(prompt());
@@ -117,13 +117,6 @@ public class ConsoleApp {
             case RUN:
                 handleRun(args);
                 return false;
-
-
-
-
-
-
-
             default:
                 System.out.println("Commande non geree (HELP pour l'aide)");
                 return false;
@@ -152,17 +145,15 @@ public class ConsoleApp {
         System.out.println("  HELP");
         System.out.println("  EXIT");
         System.out.println();
-        System.out.println("Regle sujet: CREATE UE necessite d'abord SELECT DEGREE puis SELECT YEAR.");
+        System.out.println("Erreur : Il faut d'abord sélectionner un diplome et une année pour créer une UE");
     }
 
     // ===== Handlers =====
 
 
     private void handleGetSeance(String[] args) {
-
-
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: GET SEANCE <name>");
+            throw new IllegalArgumentException("Erreur: GET SEANCE <name>");
         }
         String name = args[0];
         int nbSeances = noodle.getSeance(name);
@@ -173,7 +164,7 @@ public class ConsoleApp {
     private void handleCreateDegree(String[] args) {
         if (args.length != 5) {
             throw new IllegalArgumentException(
-                    "Usage: CREATE DEGREE <nomDiplome> <typeDiplome> <annee> <maxEtu> <ects>"
+                    "Erreur: CREATE DEGREE <nomDiplome> <typeDiplome> <annee> <maxEtu> <ects>"
             );
         }
 
@@ -189,7 +180,7 @@ public class ConsoleApp {
 
     private void handleSelectDegree(String[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: SELECT DEGREE <nomDiplome>");
+            throw new IllegalArgumentException("Erreur: SELECT DEGREE <nomDiplome>");
         }
 
         String nom = args[0];
@@ -205,7 +196,7 @@ public class ConsoleApp {
 
     private void handleSelectYear(String[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: SELECT YEAR <annee>");
+            throw new IllegalArgumentException("Erreur: SELECT YEAR <annee>");
         }
         requireSelectedDegree();
 
@@ -222,7 +213,7 @@ public class ConsoleApp {
 
     private void handleCreateUE(String[] args) {
         if (args.length != 5) {
-            throw new IllegalArgumentException("Usage: CREATE UE <nomUE> <ects> <cm> <td> <tp>");
+            throw new IllegalArgumentException("Erreur: CREATE UE <nomUE> <ects> <cm> <td> <tp>");
         }
         requireSelectedDegree();
 
@@ -238,7 +229,7 @@ public class ConsoleApp {
 
     private void handleDeleteUE(String[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: DELETE UE <nomUE>");
+            throw new IllegalArgumentException("Erreur: DELETE UE <nomUE>");
         }
         requireSelectedDegree();
 
@@ -264,7 +255,7 @@ public class ConsoleApp {
 
     private void handleGetTotal(String[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: GET TOTAL <name>");
+            throw new IllegalArgumentException("Erreur: GET TOTAL <name>");
         }
 
         String name = args[0];
@@ -287,7 +278,7 @@ public class ConsoleApp {
 
     private void handleCreateTeacher(String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("Usage: CREATE TEACHER <nom> <prenom>");
+            throw new IllegalArgumentException("Erreur: CREATE TEACHER <nom> <prenom>");
         }
 
         String nom = args[0];
@@ -298,12 +289,12 @@ public class ConsoleApp {
     }
 
     /**
-     * ITE-3 - Commande conforme:
+     * ITE-3
      * ASSIGN <nameUE> <nameTeacher> <hours>
      */
     private void handleAssign(String[] args) {
         if (args.length != 3) {
-            throw new IllegalArgumentException("Usage: ASSIGN <nomUE> <nomEnseignant> <nbHeures>");
+            throw new IllegalArgumentException("Erreur: ASSIGN <nomUE> <nomEnseignant> <nbHeures>");
         }
 
         String nomUE = args[0];
@@ -319,7 +310,7 @@ public class ConsoleApp {
 
     private void handleEditUE(String[] args) {
         if (args.length != 5) {
-            throw new IllegalArgumentException("Usage: EDIT UE <name> <ects> <cm> <td> <tp>");
+            throw new IllegalArgumentException("Erreur: EDIT UE <name> <ects> <cm> <td> <tp>");
         }
         requireSelectedDegree();
 
@@ -329,14 +320,11 @@ public class ConsoleApp {
         int td = Integer.parseInt(args[3]);
         int tp = Integer.parseInt(args[4]);
 
-        // Appelle ici la méthode que TU as ajoutée dans Diplome
-        // Ex: selectedDiplome.editerUE(...) ou selectedDiplome.modifierUE(...)
         selectedDiplome.editerUE(nomUE, ects, cm, td, tp, selectedYear);
 
         System.out.println("UE modifiee: " + nomUE + " (annee " + selectedYear + ")");
         afficherUEAnneeCourante();
     }
-
 
     private void requireSelectedDegree() {
         if (selectedDiplome == null) {
@@ -360,15 +348,12 @@ public class ConsoleApp {
 
     private void handleAssignUE(String[] args) {
         if (args.length != 3) {
-            throw new IllegalArgumentException("Usage: ASSIGN UE <name> <diplome> <year>");
+            throw new IllegalArgumentException("Erreur: ASSIGN UE <name> <diplome> <year>");
         }
 
         String nomUE = args[0];
         String nomDiplome = args[1];
         int year = Integer.parseInt(args[2]);
-
-        // Appelle ici la méthode que TU as ajoutée dans Noodle
-        // Ex: noodle.assignerUEMutualisee(nomUE, nomDiplome, year);
         noodle.assignerUEMutualisee(nomUE, nomDiplome, year);
 
         System.out.println("UE " + nomUE + " liee au diplome " + nomDiplome + " (annee " + year + ")");
@@ -376,14 +361,14 @@ public class ConsoleApp {
 
     private void handleGetCover(String[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: GET COVER <name>");
+            throw new IllegalArgumentException("Erreur: GET COVER <name>");
         }
         System.out.println(noodle.getCover(args[0]));
     }
 
     private void handleTraceGraph(String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("Usage: TRACE GRAPH <diplome|ALL> <filename.png>");
+            throw new IllegalArgumentException("Erreur: TRACE GRAPH <diplome|ALL> <filename.png>");
         }
 
         String target = args[0];
@@ -405,7 +390,6 @@ public class ConsoleApp {
         line = line.trim();
         if (line.isEmpty()) return;
 
-        // commentaires
         if (line.startsWith("#") || line.startsWith("//")) return;
 
         Commande cmd;
@@ -426,8 +410,6 @@ public class ConsoleApp {
         }
 
         if (cmd == Commande.EXIT) {
-            // On sort proprement si on exécute en interactif.
-            // En script, ça arrêtera aussi le script (ce qui est généralement souhaité).
             throw new ExitSignal();
         }
     }
@@ -449,7 +431,6 @@ public class ConsoleApp {
                 lineNo++;
                 String trimmed = line.trim();
 
-                // ignorer vides / commentaires
                 if (trimmed.isEmpty()) continue;
                 if (trimmed.startsWith("#") || trimmed.startsWith("//")) continue;
 
@@ -470,16 +451,11 @@ public class ConsoleApp {
         }
     }
     private static class ExitSignal extends RuntimeException {
-        // Exception "technique" pour sortir de la boucle sans dupliquer la logique
     }
     private void handleRun(String[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Usage: RUN <script.txt>");
+            throw new IllegalArgumentException("Erreur: RUN <script.txt>");
         }
         runScript(args[0]);
     }
-
-
-
-
 }
